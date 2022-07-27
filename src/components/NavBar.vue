@@ -1,5 +1,5 @@
 <template>
-  <header style="background-image: url(img/h2.jpg);">
+  <header>
         <!-- Start Nav -->
         <nav class="navbar navbar-expand-lg fixed-top d-flex align-items-center navbars">
             <a href="#" class="navbar-brand text-light mx-3 d-flex mt-2 align-items-center">
@@ -27,7 +27,7 @@
         <!-- Start Nav -->
 
         <!-- Start Banner -->
-        <div id="banner" class="text-center banners scroll">
+        <div id="banner" class="text-center banners scroll p-3">
             <h1 class="display-1 bannerheaders">Welcome</h1>
             <p class="h5 bannerparagraphs">“Hospitality should have no other nature than love.” </p>
         </div>
@@ -50,15 +50,26 @@
         </div>
         <!-- End Booking Section -->
 
-        <button id="left" class="ctrbtn"><i class="fas fa-chevron-left fa-3x"></i></button>
-        <button id="right" class="ctrbtn"><i class="fas fa-chevron-right fa-3x"></i></button>
-
     </header>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
+import { watch, watchEffect } from '@vue/runtime-core'
 export default {
+    setup(){
+        const bgBtnChange = ref(true)
 
+        let leftbtn = () => {
+            bgBtnChange.value = false
+        }
+        let rightbtn = () => {
+            bgBtnChange.value = true
+        }
+
+        watch()
+        return {leftbtn, rightbtn}
+    }
 }
 </script>
 
@@ -66,6 +77,7 @@ export default {
 /* Start Header */
 header{
     height: 100vh;
+    background-image:url('../assets/img/gallery/h1.jpg');
     
     background-repeat: no-repeat;
     background-position: center;
@@ -221,6 +233,8 @@ header{
 .banners{
     text-shadow: 5px 5px 7px rgba(0,0,0,0.7);
 
+    background: rgba(232, 235, 233, 0.6);
+    border-radius: 40px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -310,53 +324,5 @@ form .btn:hover{
 
 
 /* End Booking Section */
-
-.ctrbtn{
-    position: absolute;
-    top: 50%;
-
-    transform: translate(0,-50%);
-    background-color: transparent;
-    border: 0;
-}
-.ctrbtn:focus{
-    outline: 0;
-}
-
-.ctrbtn:active{
-    transform:translateY(-50%) scale(0.97);
-}
-
-#left{
-    left: 30px;
-
-    animation: leftbtn 1.5s infinite;
-}
-
-#right{
-    right: 30px;
-
-    animation: rightbtn 1.5s infinite;
-}
-
-@keyframes leftbtn{
-    0%{
-        transform: translate(0,-50%)
-    }
-    100%{
-        transform: translate(-15px,-50%)
-    }
-}
-
-@keyframes rightbtn{
-    0%{
-        transform: translate(0,-50%)
-    }
-    100%{
-        transform: translate(15px,-50%)
-    }
-}
-
-
 /* End Header */
 </style>
