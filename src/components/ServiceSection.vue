@@ -28,27 +28,35 @@
         </div>
         <div class="container">
             <div class="row my-4">           
-                <div class="col-md-4 mx-auto d-flex my-2">
-                    <i class="fas fa-wifi fa-5x me-5"></i>
+                <div class="col-md-4 mx-auto d-flex justify-content-start align-items-center my-2">
+                    <font-awesome-icon icon="fa-solid fa-wifi" class="me-3" size="5x"></font-awesome-icon>
                     <div>
                         <h3 class="fw-bold">Enjoy free Wi-Fi</h3>
                         <p class="text-muted small">We believe that when a hotel advertises free WiFi, they should provide travelers with a fast and reliable connection.</p>
                     </div>
                 </div>
 
-                <div class="col-md-4 mx-auto d-flex my-2 ms-3">
-                    <i class="fas fa-utensils fa-5x me-5"></i>
+                <div class="col-md-4 mx-auto d-flex my-2 justify-content-start align-items-center">
+                    <font-awesome-icon icon="fa-solid fa-utensils" class="me-3" size="5x"></font-awesome-icon>
                     <div class="ms-3">
                         <h3 class="fw-bold">Concierge service</h3>
                         <p class="text-muted small">Top-tier hotels have a lot to recommend them: luxurious spas, twice-daily room service and superb on-site restaurants.</p>
                     </div>
                 </div>
 
-                <div class="col-md-4 mx-auto d-flex my-2">
-                    <i class="fas fa-swimming-pool fa-5x me-5"></i>
+                <div class="col-md-4 mx-auto d-flex my-2 justify-content-start align-items-center">
+                    <font-awesome-icon icon="fa-solid fa-swimming-pool" class="me-3" size="5x"></font-awesome-icon>
                     <div>
                         <h3 class="fw-bold">Pool access</h3>
                         <p class="text-muted small">Hotel has pool room, in particular, hotels based in big cities might require keycard access to get into the pool. Spa, and amenity access.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mx-auto d-flex my-2 justify-content-start align-items-center">
+                    <font-awesome-icon icon="fa-solid fa-mountain-sun" class="me-3" size="5x"></font-awesome-icon>
+                    <div>
+                        <h3 class="fw-bold">Views</h3>
+                        <p class="text-muted small">There are many beautiful spots which you will love.</p>
                     </div>
                 </div>
             </div>
@@ -82,8 +90,8 @@ export default {
     background-size: cover;
     height:400px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     transition: all .5s;
 }
@@ -95,12 +103,15 @@ export default {
 
 
 .imgboxs h3,.imgboxs p{
-    opacity: 0.9;
-    transition: all .5s;
+    opacity: 0;
+    transform: translateY(-50px) rotate(-10deg);
+    transform-origin: top left;
+    transition: transform .3s;
 }
 
 .imgboxs:hover h3, .imgboxs:hover p{
-    opacity: 0;
+    opacity: 0.9;
+    transform: translateY(0px);
 }
 
 .rests{
