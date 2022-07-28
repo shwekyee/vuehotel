@@ -3,7 +3,7 @@
         <!-- Start Nav -->
         <nav class="navbar navbar-expand-lg fixed-top d-flex align-items-center navbars" :class="[yscroll > 150 ? 'scroll' : '']">
             <a href="#" class="navbar-brand text-light mx-3 d-flex mt-2 align-items-center">
-                <img src="../assets/img/logo.png" class="logoimgs ms-3 me-1" alt="">
+                <img src="../../assets/img/logo.png" class="logoimgs ms-3 me-1" alt="">
                 <span style="color:#77A7CD" class="text-uppercase h3 flex-column">Light</span><span style="color:#003E71" class="h6 d-block">Idea</span>
             </a>
 
@@ -70,7 +70,7 @@ export default {
 /* Start Header */
 header{
     height: 100vh;
-    background-image:url('../assets/img/gallery/h1.jpg');
+    background-image:url('../../assets/img/gallery/h1.jpg');
     
     background-repeat: no-repeat;
     background-position: center;

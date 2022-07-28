@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBar'
-import ServiceSection from '../components/ServiceSection'
-import RoomType from '../components/RoomType'
-import GalleryPage from '../components/GalleryPage'
-import AboutUs from '../components/AboutUs'
+import NavBar from '../components/Home/NavBar'
+import ServiceSection from '../components/Home/ServiceSection'
+import RoomType from '../components/Home/RoomType'
+import GalleryPage from '../components/Home/GalleryPage'
+import AboutUs from '../components/Home/AboutUs'
 
 export default {
   name: 'HomeView',

@@ -77,6 +77,7 @@
                     <li class="listnvs">Blog</li>
                     <li class="listnvs">Privacy & Policy</li>
                     <li class="listnvs">Contact</li>
+                    <li class="listnvs" @click="routeToLogin">Admin Panel</li>
                 </ul>
             </div>
 
@@ -103,8 +104,18 @@
 </template>
 
 <script>
-export default {
+import { useRouter } from 'vue-router'
 
+export default {
+    setup(){
+        const router = useRouter()
+
+        const routeToLogin = () =>{
+            router.push({name:'login'})
+        }
+
+        return {routeToLogin}
+    }
 }
 </script>
 

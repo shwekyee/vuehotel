@@ -86,7 +86,7 @@ export default {
 }
 
 .imgboxs{
-    background: url(../assets/img/gallery/9.jpg);
+    background: url(../../assets/img/gallery/9.jpg);
     background-size: cover;
     height:300px;
     display: flex;
@@ -116,15 +116,15 @@ export default {
 }
 
 .rests{
-    background-image: url(../assets/img/gallery/restaurance.jpg);
+    background-image: url(../../assets/img/gallery/restaurance.jpg);
 }
 
 .spas{
-    background-image: url(../assets/img/gallery/spa&gym.jpg);
+    background-image: url(../../assets/img/gallery/spa&gym.jpg);
 }
 
 .envs{
-    background-image: url(../assets/img/gallery/enviroment.jpg);
+    background-image: url(../../assets/img/gallery/enviroment.jpg);
 }
 
 

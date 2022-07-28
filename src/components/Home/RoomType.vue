@@ -16,7 +16,7 @@
                 <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../assets/img/gallery/1.jpg" class="img-fluid" />
+                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
@@ -33,7 +33,7 @@
                 <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../assets/img/gallery/1.jpg" class="img-fluid" />
+                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
@@ -50,7 +50,7 @@
                 <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../assets/img/gallery/1.jpg" class="img-fluid" />
+                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
@@ -67,7 +67,7 @@
                 <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../assets/img/gallery/1.jpg" class="img-fluid" />
+                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
