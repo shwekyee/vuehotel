@@ -88,12 +88,13 @@ export default {
 .imgboxs{
     background: url(../assets/img/gallery/9.jpg);
     background-size: cover;
-    height:400px;
+    height:300px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
     transition: all .5s;
+    overflow: hidden;
 }
 
 .imgboxs:hover{
@@ -106,7 +107,7 @@ export default {
     opacity: 0;
     transform: translateY(-50px) rotate(-10deg);
     transform-origin: top left;
-    transition: transform .3s;
+    transition: transform .5s;
 }
 
 .imgboxs:hover h3, .imgboxs:hover p{

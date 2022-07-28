@@ -9,9 +9,23 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
-import { faArrowRight, faUtensils, faWifi, faSwimmingPool, faMountainSun } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, 
+         faUtensils, 
+         faWifi, 
+         faSwimmingPool, 
+         faMountainSun, 
+         faUserFriends, 
+         faWineGlass,
+         faDollarSign } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faWifi,faUtensils,faArrowRight,faSwimmingPool,faMountainSun)
+library.add(faWifi
+            ,faUtensils
+            ,faArrowRight
+            ,faSwimmingPool
+            ,faMountainSun
+            ,faUserFriends
+            ,faWineGlass
+            ,faDollarSign)
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.css"
