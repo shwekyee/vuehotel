@@ -1,13 +1,13 @@
 <template>
   <header>
         <!-- Start Nav -->
-        <nav class="navbar navbar-expand-lg fixed-top d-flex align-items-center navbars">
+        <nav class="navbar navbar-expand-lg fixed-top d-flex align-items-center navbars" :class="[yscroll > 150 ? 'scroll' : '']">
             <a href="#" class="navbar-brand text-light mx-3 d-flex mt-2 align-items-center">
                 <img src="../assets/img/logo.png" class="logoimgs ms-3 me-1" alt="">
-                <span style="color:#0ab89f" class="text-uppercase h3 flex-column">Light</span><span style="color:#ea9f20" class="h6 d-block">Idea</span>
+                <span style="color:#77A7CD" class="text-uppercase h3 flex-column">Light</span><span style="color:#003E71" class="h6 d-block">Idea</span>
             </a>
 
-            <button class="navbar-toggler shadow-none navbuttons mt-1 me-1" data-bs-toggle="collapse" data-bs-target="#nav">
+            <button class="navbar-toggler shadow-none navbuttons mt-1 me-5" data-bs-toggle="collapse" data-bs-target="#nav">
                 <div class="lines1"></div>
                 <div class="lines2"></div>
                 <div class="lines3"></div>
@@ -54,21 +54,14 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { watch, watchEffect } from '@vue/runtime-core'
+import { watchEffect,ref } from '@vue/runtime-core'
+
+
 export default {
     setup(){
-        const bgBtnChange = ref(true)
-
-        let leftbtn = () => {
-            bgBtnChange.value = false
-        }
-        let rightbtn = () => {
-            bgBtnChange.value = true
-        }
-
-        watch()
-        return {leftbtn, rightbtn}
+        let yscroll = ref()
+        watchEffect( window.addEventListener("scroll" , () => yscroll.value = scrollY ) )
+        return {yscroll}
     }
 }
 </script>

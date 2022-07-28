@@ -10,5 +10,7 @@
 </script>
 
 <style>
-
+body{
+    scroll-behavior: smooth;
+}
 </style>
