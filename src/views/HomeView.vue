@@ -2,25 +2,25 @@
   <NavBar></NavBar>
   <ServiceSection></ServiceSection>
   <RoomType></RoomType>
-  <Gallery></Gallery>
-  <About></About>
+  <GalleryPage></GalleryPage>
+  <AboutUs></AboutUs>
 </template>
 
 <script>
 import NavBar from '../components/NavBar'
 import ServiceSection from '../components/ServiceSection'
 import RoomType from '../components/RoomType'
-import Gallery from '../components/Gallery'
-import About from '../components/About'
+import GalleryPage from '../components/GalleryPage'
+import AboutUs from '../components/AboutUs'
 
 export default {
   name: 'HomeView',
   components: {
     NavBar,
     ServiceSection,
-    Gallery,
+    GalleryPage,
     RoomType,
-    About
+    AboutUs
   }
 }
 </script>
