@@ -16,7 +16,8 @@ import { faArrowRight,
          faMountainSun, 
          faUserFriends, 
          faWineGlass,
-         faDollarSign } from '@fortawesome/free-solid-svg-icons'
+         faDollarSign,
+         faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faWifi
             ,faUtensils
@@ -25,7 +26,8 @@ library.add(faWifi
             ,faMountainSun
             ,faUserFriends
             ,faWineGlass
-            ,faDollarSign)
+            ,faDollarSign
+            ,faMagnifyingGlass)
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.css"

@@ -1,7 +1,7 @@
 <template>
-  <section id="contact" class="my-5 mx-auto">
+  <section id="contact" class="my-2 my-lg-5 mx-auto">
     <div class="container">
-        <h2 class="text-dark text-center display-3 my-5">About & Contact Us</h2>
+        <h2 class="text-dark text-center display-3 my-2 my-lg-5">About & Contact Us</h2>
         <div class="under-title mb-5"></div>
         <!-- end title -->
 

@@ -1,10 +1,16 @@
 <template>
   <!-- Start Room Section -->
-    <section id="room" class="rooms pt-5">
+    <section id="room" class="rooms pt-lg-5 pt-2">
         <div class="container-fluid">
-            <div id="room-list" class="my-5 mb-1 d-flex rooms-list">
-                <h2 class="text-dark btn-sm text-center display-6 me-auto ps-0 ps-lg-3">Room & Suits</h2>
-                <ul class="pe-0 pe-lg-5">
+            <div id="room-list" class="my-lg-5 my-2 mb-1 d-flex flex-column rooms-list">
+                <h2 class="text-dark btn-sm text-center display-6">Room & Suits</h2>
+                <form class="d-flex my-2 align-self-lg-end align-self-center me-lg-5 mt-0">
+                    <input type="number" class="form-control searchforms" placeholder="People Count">
+                    <button type="submit" class="btn btn-ouline-dark btn-sm searchbtns">
+                        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                    </button>
+                </form>
+                <ul>
                     <li @click="activeBtn='delux'" :class="{active: activeBtn === 'delux' }">DELUXE</li>
                     <li @click="activeBtn='standard'" :class="{active: activeBtn === 'standard' }">STANDART</li>
                     <li @click="activeBtn='studio'" :class="{active: activeBtn === 'studio' }">STUDIO</li>
@@ -114,14 +120,8 @@ export default {
     justify-content: center;
     margin:0;
     padding:0;
-    margin-right:10%;
 }
 
-@media (max-width:700px){
-    .rooms ul{
-        margin-right: 5%;
-    }
-}
 .roomimgs{
     width: 42%;
     height: auto;
@@ -130,17 +130,12 @@ export default {
     width: 57%;
 }
 
-@media (max-width:450px){
-    .roomtexts{
-        width:60%;
-    }
-}
 .roomtexts ul{
     display: block;
 }
 
 .rooms ul li{
-    margin: 0 20px;
+    margin: 0 5%;
     cursor: pointer;
     align-self: center;
 }
@@ -174,6 +169,20 @@ export default {
     animation: fromleft 1s linear;
 }
 
+.searchforms{
+    width: 100% !important;
+    border-radius: 0 !important;
+}
+.searchbtns{
+    width: 50px !important;
+    height: 40px !important;
+    border-radius: 0 !important;
+    color:#fff !important;
+}
+.searchbtns:outline{
+    border: none;
+}
+
 @keyframes fromleft{
     0%{
         transform: translate(-90px);
@@ -182,6 +191,18 @@ export default {
     100%{
         transform: translate(0);
         opacity: 1;
+    }
+}
+
+@media (max-width:700px){
+    .rooms ul{
+        margin-right: 5%;
+    }
+}
+
+@media (max-width:450px){
+    .roomtexts{
+        width:60%;
     }
 }
 /* End Room Section */

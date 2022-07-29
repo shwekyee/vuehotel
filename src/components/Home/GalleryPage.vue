@@ -1,8 +1,8 @@
 <template>
-  <section id="gallery" class="py-5">
+  <section id="gallery" class="py-2 py-lg-5">
         <div class="container-fluid">
             <!-- start title -->
-            <h2 class="text-dark text-center display-3 my-5">Gallery</h2>
+            <h2 class="text-dark text-center display-3 my-2 my-lg-5">Gallery</h2>
             <div class="under-title mb-5"></div>
             <!-- end title -->
 
