@@ -3,8 +3,12 @@
 </template>
 
 <script>
-export default {
+// import { ref } from 'vue'
 
+export default {
+    setup(){
+       
+    }
 }
 </script>
 
