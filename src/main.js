@@ -18,11 +18,16 @@ import { faArrowRight,
          faWineGlass,
          faDollarSign,
          faMagnifyingGlass,
-         faBars } from '@fortawesome/free-solid-svg-icons'
+         faBars,
+         faPowerOff,
+         faHotel,
+         faUser,
+         faKey,
+         faFileImage } from '@fortawesome/free-solid-svg-icons'
 
 
 
-library.add(faWifi
+library.add( faWifi
             ,faUtensils
             ,faSwimmingPool
             ,faMountainSun
@@ -32,7 +37,12 @@ library.add(faWifi
             ,faMagnifyingGlass
             ,faBars
             ,faDollarSign
-            ,faArrowRight)
+            ,faArrowRight
+            ,faPowerOff
+            ,faHotel
+            ,faUser
+            ,faKey
+            ,faFileImage)
 
 
 // Bootstrap

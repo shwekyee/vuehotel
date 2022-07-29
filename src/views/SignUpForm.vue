@@ -95,7 +95,7 @@ export default {
     background: #5995fd;
 }
 .signupimgs{
-    height: 23rem;
+    height: 25rem;
 }
 
 @media (max-width:550px){
@@ -103,12 +103,7 @@ export default {
         height: 15rem;
 }
 }
-@media screen and (max-width: 550px), 
-       screen and (max-height: 700px){
-    .signupimgs{
-        height: 10rem;
-    }
-}
+
 .contents{
     margin:8%;
     background-color: #fff;

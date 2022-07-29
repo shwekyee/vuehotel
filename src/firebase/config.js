@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore,
+         collection,
+         onSnapshot,
+         orderBy,
+         query,
+         limit,
+         startAt } from "firebase/firestore";
 import { getAuth,
          createUserWithEmailAndPassword,
          updateProfile,
@@ -29,5 +35,13 @@ const authFun = {
     onAuthStateChanged
 }
 
+const dbFun = {
+    collection,
+    onSnapshot,
+    orderBy,
+    query,
+    limit,
+    startAt
+}
 
-export { db, auth, app, authFun, onAuthStateChanged}
+export { db, auth, app, authFun, onAuthStateChanged, dbFun}

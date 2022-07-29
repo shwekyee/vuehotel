@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginForm from '../views/LoginForm.vue'
 import SignUpForm from '../views/SignUpForm.vue'
 import AdminPanel from '../views/AdminPanel.vue'
+import NotFound from '../views/NotFound.vue'
 
 const routes = [
   {
@@ -19,13 +20,16 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUpForm
-  }
-  ,
+  },
   {
     path: '/adminpanel',
     name: 'adminpanel',
     component: AdminPanel
-  }
+  },
+  {
+    path: '/:catchAll(.*)',
+    component: NotFound
+  },
 ]
 
 const router = createRouter({
