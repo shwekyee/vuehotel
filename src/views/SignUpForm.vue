@@ -1,25 +1,39 @@
 <template>
   <div class="signupforms">
         <div class="row container contents">
-            <div class="col-md-6">
+            <div v-if="!areUdev">
+                <form @submit.prevent="checkSignup">
+                    <div class="form-group">
+                        <p class="display-6">Please answer to continue. <font-awesome-icon icon="fa-solid fa-arrow-right" /></p>
+                        <p class="display-6">10 + '10' = ?</p>
+                        <input type="text" v-model="ans" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div v-if="areUdev" class="col-md-6">
                 <h3 class="mb-3 signin-text"> Sign Up</h3>
-                <form action="" @submit.prevent="">
+                <form @submit.prevent="signUp">
                     <div class="form-group mt-3">
                         <label for="text">Username</label>
-                        <input type="text" class="form-control">
+                        <input type="text" v-model="name" class="form-control">
                     </div>
                     <div class="form-group mt-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control">
+                        <input type="email" v-model="email" class="form-control">
                     </div>
                     <div class="form-group mt-3">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control">
+                        <input type="password" v-model="password" class="form-control">
                     </div>
-                    <button class="btn btn-class mt-3">Login</button>
+                    <button class="btn btn-class mt-3">Sign Up</button>
+                    <div v-if="error" class="error">{{ error }}</div>
+                    <div class="d-flex justify-content-end my-3">
+                        <router-link :to="{name:'login'}" class="links me-3">Login</router-link>
+                        <a class="links" @click="goBack">Not Admin</a>
+                    </div>
                 </form>
             </div>
-            <div class="col-md-6 mt-3">
+            <div v-if="areUdev" class="col-md-6 mt-3">
                 <img src="../assets/img/signup.svg" class="img-fluid signupimgs" alt="">
             </div>
         </div>
@@ -27,8 +41,47 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
+import { useRouter } from 'vue-router'
+import useSignUp from '../composables/useSignUp'
+ 
 export default {
+    setup(){
+        const ans = ref('')
+        const areUdev = ref(false)
+        const router = useRouter()
+        const name = ref('')
+        const email = ref('')
+        const password = ref('')
+        const {error, createAccount} = useSignUp()
 
+        const checkSignup = () => {
+            if(ans.value === '1010') return areUdev.value = true
+            return router.push({name:'home'})
+        }
+
+        const signUp = async () =>{
+            let res = await createAccount(name.value,email.value,password.value)
+            console.log(res)
+            if(res) router.push({name:'home'})
+            return console.log(error)
+        }
+
+        const goBack = () => {
+            router.push({name:"home"})
+        }
+
+        return {ans, 
+                areUdev, 
+                checkSignup, 
+                name,
+                email,
+                password,
+                error,
+                signUp,
+                goBack
+            }
+    }
 }
 </script>
 
@@ -42,7 +95,19 @@ export default {
     background: #5995fd;
 }
 .signupimgs{
-    height: 370px;
+    height: 23rem;
+}
+
+@media (max-width:550px){
+    .signupimgs{
+        height: 15rem;
+}
+}
+@media screen and (max-width: 550px), 
+       screen and (max-height: 700px){
+    .signupimgs{
+        height: 10rem;
+    }
 }
 .contents{
     margin:8%;
@@ -85,7 +150,7 @@ export default {
 .form-group::after{
     content: '';
     width: 2px;
-    height: 60%;
+    height: 25px;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -104,5 +169,12 @@ export default {
 .btn-class:hover{
     background-color: #5995fd;
     color:#fff;
+}
+.links{
+    text-decoration: none;
+    cursor: pointer;
+}
+.links:hover{
+    color:#000;
 }
 </style>

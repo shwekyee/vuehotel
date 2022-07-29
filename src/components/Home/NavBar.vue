@@ -54,13 +54,13 @@
 </template>
 
 <script>
-import { watchEffect,ref } from '@vue/runtime-core'
+import { ref, onMounted } from '@vue/runtime-core'
 
 
 export default {
     setup(){
         let yscroll = ref()
-        watchEffect( window.addEventListener("scroll" , () => yscroll.value = scrollY ) )
+        onMounted(() => window.addEventListener("scroll" , () => yscroll.value = scrollY ) )
         return {yscroll}
     }
 }

@@ -20,24 +20,36 @@ import { faArrowRight,
          faMagnifyingGlass,
          faBars } from '@fortawesome/free-solid-svg-icons'
 
+
+
 library.add(faWifi
             ,faUtensils
-            ,faArrowRight
             ,faSwimmingPool
             ,faMountainSun
             ,faUserFriends
             ,faWineGlass
             ,faDollarSign
             ,faMagnifyingGlass
-            ,faBars)
+            ,faBars
+            ,faDollarSign
+            ,faArrowRight)
+
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
+//firebase 
+import {auth ,onAuthStateChanged} from './firebase/config'
 
-createApp(App)
+let app
+onAuthStateChanged(auth , () => {
+    if(!app){
+    app = createApp(App)
             .use(store)
             .use(router)
             .component('font-awesome-icon', FontAwesomeIcon)
             .mount('#app')
+    }
+})
+            

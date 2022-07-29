@@ -13,4 +13,8 @@
 body{
     scroll-behavior: smooth;
 }
+
+.error{
+  color:crimson;
+}
 </style>

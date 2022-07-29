@@ -6,20 +6,21 @@
             </div>
             <div class="col-md-6">
                 <h3 class="mb-3 signin-text"> Sign In</h3>
-                <form action="" @submit.prevent="">
+                <form action="" @submit.prevent="logIn">
                     <div class="form-group mt-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control">
+                        <input v-model="email" type="email" class="form-control">
                     </div>
                     <div class="form-group mt-3">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control">
+                        <input v-model="password" type="password" class="form-control">
                     </div>
                     <button class="btn btn-class mt-3">Login</button>
                     <div class="d-flex justify-content-end my-3">
                         <router-link :to="{name:'signup'}" class="links me-3">Sign Up</router-link>
                         <a class="links" @click="goBack">Not Admin</a>
                     </div>
+                    <div v-if="error" class="error">{{ error }}</div>
                 </form>
             </div>
         </div>
@@ -27,16 +28,27 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router'
+import useLogin from '../composables/useLogin'
 export default {
     setup(){
         const router = useRouter();
+        const email = ref('')
+        const password = ref('')
+        const {error,login} = useLogin()
 
         const goBack = () => {
             router.push({name:"home"})
         }
 
-        return {goBack}
+        const logIn = async() => {
+            let res = await login(email.value,password.value)
+            console.log(res);
+            if(res) router.push({name:'home'})
+        }
+
+        return {goBack,email,password,error,logIn}
     }
 }
 </script>
