@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="bg-white" id="sidebar-wrapper">
+        <div class="bg-dark text-light" id="sidebar-wrapper">
             <div class="sidebar-heading text-center primary-text fs-5 fw-bold text-uppercase border-bottom d-flex justify-content-lg-end justify-content-center align-items-center py-2 my-2 pe-0 pe-lg-3">
                 <span class="d-none d-lg-inline-block">Light Idea</span>
                 <font-awesome-icon icon="fa-solid fa-hotel" class="ms-1 ms-lg-2"></font-awesome-icon>
@@ -37,21 +37,20 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="py-4 px-4">
-                
-            </nav>
 
             <div class="container-fluid px-4">
-                
+              <TableData></TableData>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import TableData from '../components/Admin/TableData'
 import { ref } from 'vue'
 
 export default {
+  components: { TableData },
     setup(){
        const menuActive = ref('menu')
 
@@ -93,10 +92,6 @@ export default {
 
 #wrapper {
   overflow-x: hidden;
-  background: #C9D6FF;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #C9D6FF, #E2E2E2);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #C9D6FF, #E2E2E2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 #sidebar-wrapper {
