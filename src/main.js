@@ -62,4 +62,3 @@ onAuthStateChanged(auth , () => {
             .mount('#app')
     }
 })
-            

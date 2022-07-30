@@ -37,12 +37,8 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="py-4 px-4">
-                
-            </nav>
-
-            <div class="container-fluid px-4">
-                
+            <div class="container-fluid pe-2">
+                <DataTable/>
             </div>
         </div>
     </div>
@@ -50,8 +46,12 @@
 
 <script>
 import { ref } from 'vue'
+import DataTable from '@/components/Admin/DataTable.vue'
 
 export default {
+    components: {
+    DataTable
+},
     setup(){
        const menuActive = ref('menu')
 

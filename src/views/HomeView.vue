@@ -12,7 +12,6 @@ import ServiceSection from '../components/Home/ServiceSection'
 import RoomType from '../components/Home/RoomType'
 import GalleryPage from '../components/Home/GalleryPage'
 import AboutUs from '../components/Home/AboutUs'
-
 export default {
   name: 'HomeView',
   components: {

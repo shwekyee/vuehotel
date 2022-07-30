@@ -1,20 +1,18 @@
 <template>
-  <nav>
-    <router-link to="/"></router-link> 
-  </nav>
-  <router-view/>
+  <v-app>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
+
 <script>
 
+export default {
+  name: 'App',
 
+  data: () => ({
+    //
+  }),
+}
 </script>
-
-<style>
-body{
-    scroll-behavior: smooth;
-}
-
-.error{
-  color:crimson;
-}
-</style>
