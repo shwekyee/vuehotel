@@ -12,6 +12,10 @@ import { getAuth,
          signInWithEmailAndPassword,
          signOut,
          onAuthStateChanged } from "firebase/auth";
+import { getStorage,
+         ref,
+         uploadBytes,
+         getDownloadURL } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZnziL165XPf8GhutcOvqoiO5lDFWhzbk",
@@ -26,6 +30,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 const auth = getAuth(app)
+const storage = getStorage(app)
 
 const authFun = {
     createUserWithEmailAndPassword,
@@ -44,4 +49,17 @@ const dbFun = {
     startAt
 }
 
-export { db, auth, app, authFun, onAuthStateChanged, dbFun}
+const storageFun = {
+    ref,
+    uploadBytes,
+    getDownloadURL
+}
+
+export { db, 
+         auth, 
+         storage, 
+         app, 
+         authFun, 
+         onAuthStateChanged, 
+         dbFun, 
+         storageFun}

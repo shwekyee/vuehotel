@@ -36,46 +36,12 @@
 <script>
 export default {
     setup(){
-        const datas =[
-            {
-                id:1,
-                category:'delux',
-                img:'../../assets/img/gallery/1.jpg',
-                peopleCount:2,
-                price:20,
-                service:['breakfast'],
-            },
-            {
-                id:2,
-                category:'standard',
-                img:'../../assets/img/gallery/1.jpg',
-                peopleCount:2,
-                price:20,
-                service:['breakfast'],
-            },
-            {
-                id:3,
-                category:'standard',
-                img:'../../assets/img/gallery/1.jpg',
-                peopleCount:2,
-                price:20,
-                service:['breakfast'],
-            },
-            {
-                id:4,
-                category:'standard',
-                img:'../../assets/img/gallery/1.jpg',
-                peopleCount:2,
-                price:20,
-                service:['breakfast'],
-            }
-        ]
-
+      
       const onClickHandler = (page) => {
       console.log(page);
       };
 
-      return {datas, onClickHandler}
+      return {onClickHandler}
 }}
 </script>
 
