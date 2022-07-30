@@ -23,7 +23,8 @@ import { faArrowRight,
          faHotel,
          faUser,
          faKey,
-         faFileImage } from '@fortawesome/free-solid-svg-icons'
+         faFileImage,
+         faAdd } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -42,7 +43,8 @@ library.add( faWifi
             ,faHotel
             ,faUser
             ,faKey
-            ,faFileImage)
+            ,faFileImage
+            ,faAdd)
 
 
 // Bootstrap

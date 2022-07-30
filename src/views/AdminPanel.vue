@@ -7,26 +7,31 @@
                 <font-awesome-icon icon="fa-solid fa-hotel" class="ms-1 ms-lg-2"></font-awesome-icon>
             </div>
             <p class="primary-text fw-bold border-bottom d-flex justify-content-lg-end justify-content-center align-items-center my-2 pt-2 pb-3 pe-0 pe-lg-3">
-                <span class="d-none d-lg-inline-block">Username</span>
+                <span class="d-none d-lg-inline-block">{{updateUser.displayName.charAt(0).toUpperCase() + updateUser.displayName.slice(1)}}</span>
                 <font-awesome-icon icon="fa-solid fa-user" class="ms-1 ms-lg-2"></font-awesome-icon>
             </p>
             <div class="list-group list-group-flush my-3">
-                <a href="#" @click="activeMenu('menu')" :class="{active:menuActive==='menu'}"
+                <a href="#" @click="activeMenu('menu','MenuData')" :class="{active:menuActive==='menu'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
-                    <span class="d-none d-lg-inline-block">Room Menu</span>
+                    <span class="d-none d-lg-inline-block">Room Menu Lists</span>
                     <font-awesome-icon icon="fa-solid fa-key" class="ms-1 ms-lg-2" />
                 </a>
-                <a href="#" @click="activeMenu('gallery')" :class="{active:menuActive==='gallery'}"
+                <a href="#" @click="activeMenu('addmenu','AddMenu')" :class="{active:menuActive==='addmenu'}"
+                class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
+                    <span class="d-none d-lg-inline-block">Add Menu</span>
+                    <font-awesome-icon icon="fa-solid fa-add" class="ms-1 ms-lg-2" />
+                </a>
+                <a href="#" @click="activeMenu('gallery','StillWorking')" :class="{active:menuActive==='gallery'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Gallery</span>
                     <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" /> 
                 </a>
-                <a href="#" @click="activeMenu('service')" :class="{active:menuActive==='service'}"
+                <a href="#" @click="activeMenu('service','StillWorking')" :class="{active:menuActive==='service'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Service</span>
                     <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" />
                 </a>        
-                <a href="#" @click="activeMenu('logout')" :class="{active:menuActive==='logout'}"
+                <a href="#" @click="logout" :class="{active:menuActive==='logout'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent text-danger fw-bold">
                     <span class="d-none d-lg-inline-block">Logout</span>
                     <font-awesome-icon icon="fa-solid fa-power-off" class="ms-1 ms-lg-2"></font-awesome-icon>
@@ -39,25 +44,42 @@
         <div id="page-content-wrapper">
 
             <div class="container-fluid px-4">
-              <TableData></TableData>
+              <component :is="currentTab"></component>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import TableData from '../components/Admin/TableData'
+import MenuData from '../components/Admin/MenuData'
+import AddMenu from '../components/Admin/AddMenu'
+import StillWorking from '../components/Admin/StillWorking'
 import { ref } from 'vue'
+import getUser from '../composables/getUser'
 
 export default {
-  components: { TableData },
+  components: { 
+    MenuData,
+    AddMenu,
+    StillWorking 
+    },
     setup(){
        const menuActive = ref('menu')
+       let currentTab = ref('MenuData')
+       const {updateUser} = getUser()
+       
+       //for sidebar
+       const activeMenu = (menu,tab) => {
+        menuActive.value = menu
+        currentTab.value = tab
+       }
+       
 
-
-       const activeMenu = menu => menuActive.value = menu
- 
-       return {menuActive ,activeMenu}
+       //for logout
+       const logout = () =>{
+        console.log('bye')
+       }
+       return {menuActive ,activeMenu,currentTab,logout,updateUser}
     }
 }
 </script>

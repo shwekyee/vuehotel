@@ -8,19 +8,31 @@
       <th scope="col">People Count</th>
       <th scope="col">Price</th>
       <th scope="col">Service</th>
-      <th scope="col"></th>
+      <th scope="col">
+         {{error}}
+      </th>
     </tr>
   </thead>
-  <tbody v-for="data in datas" :key="data.id">
+  <h1 v-if="isPending">Loading</h1>
+  <tbody v-for="(data,idx) in fetchDatas" :key="data.id">
     <tr>
-      <th scope="row">{{data.id}}</th>
+      <th scope="row">{{idx}}</th>
       <td>{{data.category}}</td>
       <td>
         <img width="150px" :src="data.img" alt="">
       </td>
       <td>{{data.peopleCount}}</td>
       <td>{{data.price}} $</td>
-      <td>{{data.service.forEach( service => service)}}</td>
+      <td>
+        <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
+      </td>
+      <td>
+        <button class="btn btn-outline-primary btn-sm me-1">
+          Edit
+        </button>
+        <button class="btn btn-outline-danger btn-sm">
+          Delete
+        </button></td>
     </tr>
   </tbody>
 </table>
@@ -34,14 +46,30 @@
 </template>
 
 <script>
+import getCollection from '@/composables/getCollection';
+import { computed } from 'vue'
+
 export default {
     setup(){
       
+      //Pagination
       const onClickHandler = (page) => {
       console.log(page);
       };
 
-      return {onClickHandler}
+      //get Data from firebase
+      let { documents, error, isPending } = getCollection('rooms', 'price')
+
+      // eslint-disable-next-line vue/return-in-computed-property
+      const fetchDatas = computed( ()=> {
+            if(documents.value){
+            return  documents.value.map( doc => {
+                    return {...doc}
+                })
+            }
+        })
+
+      return {onClickHandler, fetchDatas, error, isPending}
 }}
 </script>
 

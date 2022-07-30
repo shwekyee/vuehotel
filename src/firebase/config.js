@@ -5,7 +5,9 @@ import { getFirestore,
          orderBy,
          query,
          limit,
-         startAt } from "firebase/firestore";
+         startAt,
+         serverTimestamp,
+         addDoc } from "firebase/firestore";
 import { getAuth,
          createUserWithEmailAndPassword,
          updateProfile,
@@ -46,7 +48,8 @@ const dbFun = {
     orderBy,
     query,
     limit,
-    startAt
+    startAt,
+    addDoc
 }
 
 const storageFun = {
@@ -62,4 +65,5 @@ export { db,
          authFun, 
          onAuthStateChanged, 
          dbFun, 
-         storageFun}
+         storageFun,
+         serverTimestamp}
