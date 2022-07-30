@@ -52,6 +52,9 @@ import "bootstrap/dist/js/bootstrap.js"
 //firebase 
 import {auth ,onAuthStateChanged} from './firebase/config'
 
+//Vue Pagination
+import VueAwesomePaginate from "vue-awesome-paginate";
+
 let app
 onAuthStateChanged(auth , () => {
     if(!app){
@@ -59,6 +62,7 @@ onAuthStateChanged(auth , () => {
             .use(store)
             .use(router)
             .component('font-awesome-icon', FontAwesomeIcon)
+            .use(VueAwesomePaginate)
             .mount('#app')
     }
 })
