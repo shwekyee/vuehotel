@@ -4,6 +4,9 @@ import LoginForm from '../views/LoginForm.vue'
 import SignUpForm from '../views/SignUpForm.vue'
 import AdminPanel from '../views/AdminPanel.vue'
 import NotFound from '../views/NotFound.vue'
+import MenuData from '../components/Admin/MenuData.vue'
+import AddMenu from '../components/Admin/AddMenu.vue'
+import StillWorking from '../components/Admin/StillWorking.vue'
 
 const routes = [
   {
@@ -24,7 +27,19 @@ const routes = [
   {
     path: '/adminpanel',
     name: 'adminpanel',
-    component: AdminPanel
+    component: AdminPanel,
+    children:[ {
+                path:'menudata',
+                name:'menudata',
+                component:MenuData},
+                {
+                  path:'addMenu',
+                  name:'addmenu',
+                  component:AddMenu},
+                {
+                  path:'stillworking',
+                  name:'stillworking',
+                  component:StillWorking} ]
   },
   {
     path: '/:catchAll(.*)',

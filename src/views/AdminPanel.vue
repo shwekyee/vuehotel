@@ -11,31 +11,41 @@
                 <font-awesome-icon icon="fa-solid fa-user" class="ms-1 ms-lg-2"></font-awesome-icon>
             </p>
             <div class="list-group list-group-flush my-3">
-                <a href="#" @click="activeMenu('menu','MenuData')" :class="{active:menuActive==='menu'}"
-                class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
+
+                <router-link :to="{name:'menudata'}" @click="activeMenu('menu','MenuData')" :class="{active:menuActive==='menu'}"
+                  class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
                     <span class="d-none d-lg-inline-block">Room Menu Lists</span>
                     <font-awesome-icon icon="fa-solid fa-key" class="ms-1 ms-lg-2" />
-                </a>
-                <a href="#" @click="activeMenu('addmenu','AddMenu')" :class="{active:menuActive==='addmenu'}"
+                </router-link>
+
+                <router-link :to="{name:'addmenu'}" @click="activeMenu('addmenu','AddMenu')" :class="{active:menuActive==='addmenu'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
                     <span class="d-none d-lg-inline-block">Add Menu</span>
                     <font-awesome-icon icon="fa-solid fa-add" class="ms-1 ms-lg-2" />
-                </a>
-                <a href="#" @click="activeMenu('gallery','StillWorking')" :class="{active:menuActive==='gallery'}"
+                </router-link>
+
+                <router-link :to="{name:'stillworking'}" @click="activeMenu('gallery','StillWorking')" :class="{active:menuActive==='gallery'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Gallery</span>
                     <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" /> 
-                </a>
+                </router-link>
+
                 <a href="#" @click="activeMenu('service','StillWorking')" :class="{active:menuActive==='service'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Service</span>
                     <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" />
-                </a>        
+                </a>
+                <a href="#" @click="goback" :class="{active:menuActive==='goback'}"
+                class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <span class="d-none d-lg-inline-block">Home</span>
+                    <font-awesome-icon icon="fa-solid fa-arrow-right" class="ms-1 ms-lg-2" />
+                </a>          
                 <a href="#" @click="logout" :class="{active:menuActive==='logout'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent text-danger fw-bold">
                     <span class="d-none d-lg-inline-block">Logout</span>
                     <font-awesome-icon icon="fa-solid fa-power-off" class="ms-1 ms-lg-2"></font-awesome-icon>
                 </a>
+                
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -44,24 +54,19 @@
         <div id="page-content-wrapper">
 
             <div class="container-fluid px-4">
-              <component :is="currentTab"></component>
+              <router-view></router-view>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import MenuData from '../components/Admin/MenuData'
-import AddMenu from '../components/Admin/AddMenu'
-import StillWorking from '../components/Admin/StillWorking'
 import { ref } from 'vue'
 import getUser from '../composables/getUser'
 
 export default {
   components: { 
-    MenuData,
-    AddMenu,
-    StillWorking 
+    
     },
     setup(){
        const menuActive = ref('menu')
@@ -80,12 +85,18 @@ export default {
         console.log('bye')
        }
 
+       //goback
+       const goback = () => {
+        console.log('goback')
+       }
+
        
        return {menuActive
               ,activeMenu
               ,currentTab
               ,logout
-              ,updateUser}
+              ,updateUser
+              ,goback}
     }
 }
 </script>

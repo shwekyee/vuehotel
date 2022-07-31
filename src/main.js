@@ -24,7 +24,8 @@ import { faArrowRight,
          faUser,
          faKey,
          faFileImage,
-         faAdd } from '@fortawesome/free-solid-svg-icons'
+         faAdd
+          } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -44,7 +45,8 @@ library.add( faWifi
             ,faUser
             ,faKey
             ,faFileImage
-            ,faAdd)
+            ,faAdd
+            )
 
 
 // Bootstrap
