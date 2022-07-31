@@ -19,7 +19,7 @@
       <th scope="row">{{++idx}}</th>
       <td>{{data.category}}</td>
       <td>
-        <img width="150px" :src="data.img" alt="">
+        <img class="dataimgs" :src="data.coverUrl">
       </td>
       <td>{{data.peopleCount}}</td>
       <td>{{data.price}} $</td>
@@ -30,9 +30,13 @@
         <button class="btn btn-outline-primary btn-sm me-1">
           Edit
         </button>
+        <button class="btn btn-outline-success btn-sm me-1">
+          Detail
+        </button>
         <button class="btn btn-outline-danger btn-sm">
           Delete
-        </button></td>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -101,5 +105,10 @@ export default {
   *, *::before, *::after {
     box-sizing: border-box;
     list-style: none;
+}
+.dataimgs{
+  width:20px !important;
+  height:20px !important;
+  object-fit: cover;
 }
 </style>

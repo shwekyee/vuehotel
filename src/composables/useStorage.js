@@ -13,10 +13,11 @@ const useStroage = () => {
         const storageRef = storageFun.ref(storage, filePath.value)
 
         try{
-            const res = await uploadBytes(storageRef, file)
-            console.log(res)
-            url.value = await getDownloadURL(storageFun.ref(storage,res))
+            await uploadBytes(storageRef, file)
+            url.value = await getDownloadURL(storageFun.ref(storage,filePath.value))
             errorUpload.value = null
+            console.log('Url value is' + url.value)
+            console.log('filePath value is' + filePath.value)
         }catch(err){
             errorUpload.value = err.message
             console.log(err.message)

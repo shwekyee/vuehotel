@@ -1,20 +1,23 @@
 <template>
   <form @submit.prevent class="mt-2">
-    <div class="mb-3">
+  <div class="mb-3">
   <label for="formGroupExampleInput" class="form-label">Category</label>
     <select v-model="form.category" class="form-select">
         <option value="Delux">Delux</option>
         <option value="Standard">Standard</option>
         <option value="Studio">Studio</option>
     </select>
-</div>
+  </div>
 <div class="mb-3">
   <label for="formGroupExampleInput2" class="form-label">Title</label>
   <input v-model="form.title" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Title">
 </div>
 <div class="mb-3">
-  <label for="formFile" class="form-label">Default file input example <span v-if="error">{{error}}</span></label>
-  <input class="form-control" :value="form.image" type="file" id="formFile">
+  <label for="formFile" class="form-label">Default file input example 
+    <span v-if="error">{{error}}</span>
+    <span v-if="fileError">{{fileError}}</span>
+  </label>
+  <input class="form-control" @change="handleChange" name="file" type="file">
 </div>
 <div class="mb-3">
   <label for="formGroupExampleInput3" class="form-label">Price</label>
@@ -47,34 +50,57 @@
 import { ref } from '@vue/reactivity'
 import { serverTimestamp } from '../../firebase/config'
 import useCollection from '../../composables/useCollection'
-// import useStroage from '@/composables/useStorage'
+import { useRouter } from 'vue-router'
+import useStroage from '@/composables/useStorage'
 
 export default {
-    setup(props,context){
-
-        const form =ref({
+    setup(){
+        const image = ref(null)
+        const fileError = ref(null)
+        const router = useRouter()
+        const form = ref({
             category: '',
             price:'',
             peopleCount:'',
             title:'',
             createdAt:serverTimestamp(),
             image:null,
+            coverUrl:null,
             service:[]
         })
         const { error, add_doc} = useCollection('rooms')
-        // const { filePath , url, uploadImage, errorUpload} = useStroage()
+        const { filePath , url, uploadImage} = useStroage()
 
 
         const addMenu = async () => {
-            await add_doc(form.value)
-            console.log(form.value)
-            if(!error.vaue){
-                context.emit('addMenuFinish')
+            await uploadImage(image.value)
+            await add_doc({
+              ...form.value,
+              image:filePath.value,
+              coverUrl:url.value
+            })
+            
+            if(!error.value){
+                router.push('/#room')
             }
         }
+
+
+      // allowed file types
+      const types = ['image/png', 'image/jpeg', 'image/jpg']
+      const handleChange = (e) => {
+      let selected = e.target.files[0]
+      if (selected && types.includes(selected.type)) {
+        image.value = selected
+        fileError.value = null
+      } else {
+        image.value = null
+        fileError.value = 'Please select an image file (png or jpg)'
+      }
+    }
             
         
-        return {form, addMenu, error}
+        return {form, addMenu, error, handleChange, fileError}
     }
 }
 </script>

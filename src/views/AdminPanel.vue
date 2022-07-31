@@ -44,7 +44,7 @@
         <div id="page-content-wrapper">
 
             <div class="container-fluid px-4">
-              <component :is="currentTab" @addMenuFinish="addMenuFinish"></component>
+              <component :is="currentTab"></component>
             </div>
         </div>
     </div>
@@ -80,16 +80,12 @@ export default {
         console.log('bye')
        }
 
-       //add Menu Finish
-       const addMenuFinish = () => {
-          activeMenu('menu','MenuData')
-       }
+       
        return {menuActive
               ,activeMenu
               ,currentTab
               ,logout
-              ,updateUser
-              ,addMenuFinish}
+              ,updateUser}
     }
 }
 </script>
