@@ -45,7 +45,7 @@ export default {
         const logIn = async() => {
             let res = await login(email.value,password.value)
             console.log(res);
-            if(res) router.push({name:'home'})
+            if(res) router.push({name:'adminpanel'})
         }
 
         return {goBack,email,password,error,logIn}

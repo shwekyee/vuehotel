@@ -30,9 +30,9 @@
         <button class="btn btn-outline-primary btn-sm me-1">
           Edit
         </button>
-        <button class="btn btn-outline-success btn-sm me-1">
+        <!-- <button class="btn btn-outline-success btn-sm me-1">
           Detail
-        </button>
+        </button> -->
         <button class="btn btn-outline-danger btn-sm">
           Delete
         </button>
@@ -107,8 +107,8 @@ export default {
     list-style: none;
 }
 .dataimgs{
-  width:20px !important;
-  height:20px !important;
+  width:35px !important;
+  height:35px !important;
   object-fit: cover;
 }
 </style>
