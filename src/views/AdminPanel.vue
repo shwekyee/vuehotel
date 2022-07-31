@@ -3,8 +3,10 @@
         <!-- Sidebar -->
         <div class="bg-dark text-light" id="sidebar-wrapper">
             <div class="sidebar-heading text-center primary-text fs-5 fw-bold text-uppercase border-bottom d-flex justify-content-lg-end justify-content-center align-items-center py-2 my-2 pe-0 pe-lg-3">
-                <span class="d-none d-lg-inline-block">Light Idea</span>
-                <font-awesome-icon icon="fa-solid fa-hotel" class="ms-1 ms-lg-2"></font-awesome-icon>
+                <router-link :to="{name:'menudata'}" class="bg-transparent text-second">
+                  <span class="d-none d-lg-inline-block">Light Idea</span>
+                  <font-awesome-icon icon="fa-solid fa-hotel" class="ms-1 ms-lg-2"></font-awesome-icon>
+                </router-link>
             </div>
             <p class="primary-text fw-bold border-bottom d-flex justify-content-lg-end justify-content-center align-items-center my-2 pt-2 pb-3 pe-0 pe-lg-3">
                 <span class="d-none d-lg-inline-block">{{updateUser.displayName.charAt(0).toUpperCase() + updateUser.displayName.slice(1)}}</span>

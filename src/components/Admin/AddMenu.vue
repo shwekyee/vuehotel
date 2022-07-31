@@ -53,6 +53,7 @@ import useCollection from '../../composables/useCollection'
 import { useRouter } from 'vue-router'
 import useStroage from '@/composables/useStorage'
 
+
 export default {
     setup(){
         const image = ref(null)
@@ -69,7 +70,8 @@ export default {
             service:[]
         })
         const { error, add_doc} = useCollection('rooms')
-        const { filePath , url, uploadImage} = useStroage()
+        const { filePath , url, uploadImage } = useStroage()
+        
 
 
         const addMenu = async () => {
@@ -97,7 +99,7 @@ export default {
         image.value = null
         fileError.value = 'Please select an image file (png or jpg)'
       }
-    }
+      }
             
         
         return {form, addMenu, error, handleChange, fileError}

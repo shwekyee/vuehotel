@@ -1,7 +1,7 @@
 import { storage, storageFun } from '../firebase/config'
 import { ref } from 'vue'
 
-const { uploadBytes, getDownloadURL} = storageFun
+const { uploadBytes, getDownloadURL, deleteObject} = storageFun
 
 const useStroage = () => {
     const errorUpload = ref(null)
@@ -24,7 +24,21 @@ const useStroage = () => {
         }
     }
 
-    return { uploadImage, url, filePath, errorUpload }
+    const deleteImage = async(file) => {
+        filePath.value = `images/${file.name}`
+        const storageRef = storageFun.ref(storage, filePath.value)
+
+        try{
+            await deleteObject(storageRef, file)
+        }catch(err){
+            errorUpload.value = err.message
+            console.log(err.message)
+        }
+    }
+
+    
+
+    return { uploadImage, url, filePath, errorUpload, deleteImage }
 } 
 
 export default useStroage
