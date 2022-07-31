@@ -16,7 +16,7 @@
   <h1 v-if="isPending">Loading</h1>
   <tbody v-for="(data,idx) in fetchDatas" :key="data.id">
     <tr>
-      <th scope="row">{{idx}}</th>
+      <th scope="row">{{++idx}}</th>
       <td>{{data.category}}</td>
       <td>
         <img width="150px" :src="data.img" alt="">

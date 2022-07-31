@@ -13,8 +13,8 @@
   <input v-model="form.title" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Title">
 </div>
 <div class="mb-3">
-  <label for="formFile" class="form-label">Default file input example</label>
-  <input class="form-control" type="file" id="formFile">
+  <label for="formFile" class="form-label">Default file input example <span v-if="error">{{error}}</span></label>
+  <input class="form-control" :value="form.image" type="file" id="formFile">
 </div>
 <div class="mb-3">
   <label for="formGroupExampleInput3" class="form-label">Price</label>
@@ -47,33 +47,34 @@
 import { ref } from '@vue/reactivity'
 import { serverTimestamp } from '../../firebase/config'
 import useCollection from '../../composables/useCollection'
-import { useRouter } from 'vue-router'
+// import useStroage from '@/composables/useStorage'
 
 export default {
-    setup(){
-        const img = ref(null)
+    setup(props,context){
+
         const form =ref({
             category: '',
             price:'',
             peopleCount:'',
             title:'',
             createdAt:serverTimestamp(),
-            Image:img.value,
+            image:null,
             service:[]
         })
         const { error, add_doc} = useCollection('rooms')
-        const router = useRouter()
+        // const { filePath , url, uploadImage, errorUpload} = useStroage()
+
 
         const addMenu = async () => {
             await add_doc(form.value)
-            console.log(error.value)
+            console.log(form.value)
             if(!error.vaue){
-                router.push({name:"adminpanel"})
+                context.emit('addMenuFinish')
             }
         }
             
         
-        return {form, img, addMenu, error}
+        return {form, addMenu, error}
     }
 }
 </script>

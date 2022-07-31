@@ -1,29 +1,29 @@
 import { storage, storageFun } from '../firebase/config'
+import { ref } from 'vue'
 
-
-
-const { uploadBytes,ref, getDownloadURL} = storageFun
+const { uploadBytes, getDownloadURL} = storageFun
 
 const useStroage = () => {
-    let error 
-    let url
-    let filePath 
+    const errorUpload = ref(null)
+    const url = ref(null)
+    const filePath = ref(null)
 
     const uploadImage = async (file) => {
-        filePath = `images/${file}`
-        const storageRef = ref(storage, filePath)
+        filePath.value = `images/${file.name}`
+        const storageRef = storageFun.ref(storage, filePath.value)
 
         try{
             const res = await uploadBytes(storageRef, file)
             console.log(res)
-            url = await getDownloadURL(ref(storage,res))
+            url.value = await getDownloadURL(storageFun.ref(storage,res))
+            errorUpload.value = null
         }catch(err){
-            error = err.message
+            errorUpload.value = err.message
             console.log(err.message)
         }
     }
 
-    return { uploadImage, url, filePath, error }
+    return { uploadImage, url, filePath, errorUpload }
 } 
 
 export default useStroage
