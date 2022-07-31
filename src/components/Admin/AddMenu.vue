@@ -12,20 +12,21 @@
   <label for="formGroupExampleInput2" class="form-label">Title</label>
   <input v-model="form.title" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Title">
 </div>
-<div class="mb-3">
-  <label for="formFile" class="form-label">Default file input example 
+<img v-if="preview" class="addimgs" :src="preview" alt="">
+<div class="m-2 ms-0">
+  <label for="formFile" class="form-label">
     <span v-if="error">{{error}}</span>
     <span v-if="fileError">{{fileError}}</span>
   </label>
-  <input class="form-control" @change="handleChange" name="file" type="file">
+  <input class="form-control d-inline-block" @change="handleChange" name="file" type="file">
 </div>
-<div class="mb-3">
+<div class="m-2 ms-0">
   <label for="formGroupExampleInput3" class="form-label">Price</label>
-  <input v-model.number="form.price" type="number" class="form-control" id="formGroupExampleInput3" placeholder="Price">
+  <input v-model.number="form.price" type="number" class="form-control d-inline-block" id="formGroupExampleInput3" placeholder="Price">
 </div>
-<div class="mb-3">
+<div class="m-2 ms-0">
   <label for="formGroupExampleInput4" class="form-label">People Count</label>
-  <input v-model.number="form.peopleCount" type="number" class="form-control" id="formGroupExampleInput4" placeholder="People Count">
+  <input v-model.number="form.peopleCount" type="number" class="form-control d-inline-block" id="formGroupExampleInput4" placeholder="People Count">
 </div>
 <p class="mb-0">Service</p>
 <div class="form-check">
@@ -57,6 +58,7 @@ import useStroage from '@/composables/useStorage'
 export default {
     setup(){
         const image = ref(null)
+        const preview = ref(null)
         const fileError = ref(null)
         const router = useRouter()
         const form = ref({
@@ -83,7 +85,7 @@ export default {
             })
             
             if(!error.value){
-                router.push('/#room')
+                router.push({name:'adminpanel'})
             }
         }
 
@@ -92,6 +94,7 @@ export default {
       const types = ['image/png', 'image/jpeg', 'image/jpg']
       const handleChange = (e) => {
       let selected = e.target.files[0]
+      preview.value = URL.createObjectURL(selected)
       if (selected && types.includes(selected.type)) {
         image.value = selected
         fileError.value = null
@@ -102,10 +105,15 @@ export default {
       }
             
         
-        return {form, addMenu, error, handleChange, fileError}
+        return {form, addMenu, error, handleChange, fileError, preview}
     }
 }
 </script>
 <style scoped>
-
+.addimgs{
+  width:100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
 </style>

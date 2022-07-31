@@ -33,7 +33,7 @@
         <!-- <button class="btn btn-outline-success btn-sm me-1">
           Detail
         </button> -->
-        <button @click="deleteData(data.id)" class="btn btn-outline-danger btn-sm">
+        <button @click="deleteData(data.id, data.coverUrl)" class="btn btn-outline-danger btn-sm">
           Delete
         </button>
       </td>
@@ -53,16 +53,21 @@
 import getCollection from '@/composables/getCollection';
 import { computed } from 'vue'
 import { useRouter } from 'vue-router';
+import useStroage from '@/composables/useStorage';
+import useDocument from '@/composables/useDocument';
+
 
 export default {
     setup(){
       const router = useRouter()
 
+      
       //Pagination
       const onClickHandler = (page) => {
       console.log(page);
       };
 
+      
       //get Data from firebase
       let { documents, error, isPending } = getCollection('rooms', 'price')
 
@@ -82,9 +87,15 @@ export default {
       }
 
       //delete data
-      const deleteData = (id) => {
-          console.log(id)
+      const deleteData = (id, image) => {
+          const { deletedoc } = useDocument('rooms', id)
+          const { deleteImage } = useStroage()
+          deletedoc()
+          deleteImage(image)
+          console.log('Delete' + image, id)
+          router.push({name:'adminpanel'})
       }
+
       return {onClickHandler, 
               fetchDatas,     
               error, 

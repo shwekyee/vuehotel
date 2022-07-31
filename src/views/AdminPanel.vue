@@ -14,29 +14,24 @@
             </p>
             <div class="list-group list-group-flush my-3">
 
-                <router-link :to="{name:'menudata'}" @click="activeMenu('menu','MenuData')" :class="{active:menuActive==='menu'}"
+                <router-link :to="{name:'menudata'}" @click="activeMenu('menudata')" :class="{active:menuActive==='menudata'}"
                   class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
                     <span class="d-none d-lg-inline-block">Room Menu Lists</span>
                     <font-awesome-icon icon="fa-solid fa-key" class="ms-1 ms-lg-2" />
                 </router-link>
 
-                <router-link :to="{name:'addmenu'}" @click="activeMenu('addmenu','AddMenu')" :class="{active:menuActive==='addmenu'}"
+                <router-link :to="{name:'addmenu'}" @click="activeMenu('addmenu')" :class="{active:menuActive==='addmenu'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
                     <span class="d-none d-lg-inline-block">Add Menu</span>
                     <font-awesome-icon icon="fa-solid fa-add" class="ms-1 ms-lg-2" />
                 </router-link>
 
-                <router-link :to="{name:'stillworking'}" @click="activeMenu('gallery','StillWorking')" :class="{active:menuActive==='gallery'}"
+                <router-link :to="{name:'stillworking'}" @click="activeMenu('stillworking')" :class="{active:menuActive==='stillworking'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Gallery</span>
                     <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" /> 
                 </router-link>
 
-                <a href="#" @click="activeMenu('service','StillWorking')" :class="{active:menuActive==='service'}"
-                class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <span class="d-none d-lg-inline-block">Service</span>
-                    <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" />
-                </a>
                 <a href="#" @click="goback" :class="{active:menuActive==='goback'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Home</span>
@@ -67,22 +62,28 @@ import { ref } from 'vue'
 import getUser from '../composables/getUser'
 import useSignout from '@/composables/useSignout'
 import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 export default {
   components: { 
     
     },
     setup(){
-       const menuActive = ref('menu')
-       let currentTab = ref('MenuData')
+       
        const {updateUser} = getUser()
        const { error, signout } = useSignout()
        const router = useRouter()
-       
+       const route = useRoute()
+
+       //get Active from route.path
+       const activeRoute = route.path.slice(route.path.lastIndexOf('/') + 1)
+
+       const menuActive = ref(activeRoute)
+       const currentTab = ref(activeRoute)
        //for sidebar
-       const activeMenu = (menu,tab) => {
-        menuActive.value = menu
-        currentTab.value = tab
+       const activeMenu = (active) => {
+        menuActive.value = active
+        currentTab.value = active
        }
        
 

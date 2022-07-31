@@ -35,7 +35,7 @@ const routes = [
                 name:'menudata',
                 component:MenuData},
                 {
-                  path:'addMenu',
+                  path:'addmenu',
                   name:'addmenu',
                   component:AddMenu},
                   {
