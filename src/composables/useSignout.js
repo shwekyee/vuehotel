@@ -14,6 +14,8 @@ const signout = async() =>{
     }
 }
 
-const useSignout = ()  => {error, signout}
+const useSignout = ()  => {
+    return {error, signout}
+}
 
 export default useSignout

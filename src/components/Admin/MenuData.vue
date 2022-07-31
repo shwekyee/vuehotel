@@ -27,13 +27,13 @@
         <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
       </td>
       <td>
-        <button class="btn btn-outline-primary btn-sm me-1">
+        <button @click="editData(data.id)" class="btn btn-outline-primary btn-sm me-1">
           Edit
         </button>
         <!-- <button class="btn btn-outline-success btn-sm me-1">
           Detail
         </button> -->
-        <button class="btn btn-outline-danger btn-sm">
+        <button @click="deleteData(data.id)" class="btn btn-outline-danger btn-sm">
           Delete
         </button>
       </td>
@@ -52,10 +52,12 @@
 <script>
 import getCollection from '@/composables/getCollection';
 import { computed } from 'vue'
+import { useRouter } from 'vue-router';
 
 export default {
     setup(){
-      
+      const router = useRouter()
+
       //Pagination
       const onClickHandler = (page) => {
       console.log(page);
@@ -71,9 +73,24 @@ export default {
                     return {...doc}
                 })
             }
+            return
         })
 
-      return {onClickHandler, fetchDatas, error, isPending}
+      //edit data
+      const editData = (id) => {
+          router.push({name:'editmenu', params:{id}})
+      }
+
+      //delete data
+      const deleteData = (id) => {
+          console.log(id)
+      }
+      return {onClickHandler, 
+              fetchDatas,     
+              error, 
+              isPending,
+              editData,
+              deleteData}
 }}
 </script>
 

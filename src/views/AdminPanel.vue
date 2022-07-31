@@ -45,14 +45,14 @@
                     <span class="d-none d-lg-inline-block">Logout</span>
                     <font-awesome-icon icon="fa-solid fa-power-off" class="ms-1 ms-lg-2"></font-awesome-icon>
                 </a>
-                
+
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-
+            <span class="danger-text" v-if="error">{{error}}</span>
             <div class="container-fluid px-4">
               <router-view></router-view>
             </div>
@@ -63,6 +63,8 @@
 <script>
 import { ref } from 'vue'
 import getUser from '../composables/getUser'
+import useSignout from '@/composables/useSignout'
+import { useRouter } from 'vue-router'
 
 export default {
   components: { 
@@ -72,6 +74,8 @@ export default {
        const menuActive = ref('menu')
        let currentTab = ref('MenuData')
        const {updateUser} = getUser()
+       const { error, signout } = useSignout()
+       const router = useRouter()
        
        //for sidebar
        const activeMenu = (menu,tab) => {
@@ -82,12 +86,15 @@ export default {
 
        //for logout
        const logout = () =>{
-        console.log('bye')
+        signout()
+        if(!error.value){
+          router.push({name:'login'})
+        }
        }
 
        //goback
        const goback = () => {
-        console.log('goback')
+          router.push({name:'home'})
        }
 
        
@@ -96,7 +103,8 @@ export default {
               ,currentTab
               ,logout
               ,updateUser
-              ,goback}
+              ,goback
+              ,error}
     }
 }
 </script>

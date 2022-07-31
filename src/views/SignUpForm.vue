@@ -63,7 +63,7 @@ export default {
         const signUp = async () =>{
             let res = await createAccount(name.value,email.value,password.value)
             console.log(res)
-            if(res) router.push({name:'adminpanel'})
+            if(res) router.push({name:'menudata'})
             return console.log(error)
         }
 

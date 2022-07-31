@@ -6,6 +6,7 @@ import AdminPanel from '../views/AdminPanel.vue'
 import NotFound from '../views/NotFound.vue'
 import MenuData from '../components/Admin/MenuData.vue'
 import AddMenu from '../components/Admin/AddMenu.vue'
+import EditMenu from '../components/Admin/EditMenu.vue'
 import StillWorking from '../components/Admin/StillWorking.vue'
 
 const routes = [
@@ -28,6 +29,7 @@ const routes = [
     path: '/adminpanel',
     name: 'adminpanel',
     component: AdminPanel,
+    redirect: '/adminpanel/menudata',
     children:[ {
                 path:'menudata',
                 name:'menudata',
@@ -36,6 +38,10 @@ const routes = [
                   path:'addMenu',
                   name:'addmenu',
                   component:AddMenu},
+                  {
+                    path:'editmenu/:id',
+                    name:'editmenu',
+                    component:EditMenu},
                 {
                   path:'stillworking',
                   name:'stillworking',
