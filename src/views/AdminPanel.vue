@@ -1,48 +1,57 @@
 <template>
   <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="bg-white" id="sidebar-wrapper">
+        <div class="bg-dark text-light" id="sidebar-wrapper">
             <div class="sidebar-heading text-center primary-text fs-5 fw-bold text-uppercase border-bottom d-flex justify-content-lg-end justify-content-center align-items-center py-2 my-2 pe-0 pe-lg-3">
-                <span class="d-none d-lg-inline-block">Light Idea</span>
-                <font-awesome-icon icon="fa-solid fa-hotel" class="ms-1 ms-lg-2"></font-awesome-icon>
+                <router-link :to="{name:'menudata'}" class="bg-transparent text-second">
+                  <span class="d-none d-lg-inline-block">Light Idea</span>
+                  <font-awesome-icon icon="fa-solid fa-hotel" class="ms-1 ms-lg-2"></font-awesome-icon>
+                </router-link>
             </div>
             <p class="primary-text fw-bold border-bottom d-flex justify-content-lg-end justify-content-center align-items-center my-2 pt-2 pb-3 pe-0 pe-lg-3">
-                <span class="d-none d-lg-inline-block">Username</span>
+                <span class="d-none d-lg-inline-block">{{updateUser.displayName.charAt(0).toUpperCase() + updateUser.displayName.slice(1)}}</span>
                 <font-awesome-icon icon="fa-solid fa-user" class="ms-1 ms-lg-2"></font-awesome-icon>
             </p>
             <div class="list-group list-group-flush my-3">
-                <a href="#" @click="activeMenu('menu')" :class="{active:menuActive==='menu'}"
-                class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
-                    <span class="d-none d-lg-inline-block">Room Menu</span>
+
+                <router-link :to="{name:'menudata'}" @click="activeMenu('menudata')" :class="{active:menuActive==='menudata'}"
+                  class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
+                    <span class="d-none d-lg-inline-block">Room Menu Lists</span>
                     <font-awesome-icon icon="fa-solid fa-key" class="ms-1 ms-lg-2" />
-                </a>
-                <a href="#" @click="activeMenu('gallery')" :class="{active:menuActive==='gallery'}"
+                </router-link>
+
+                <router-link :to="{name:'addmenu'}" @click="activeMenu('addmenu')" :class="{active:menuActive==='addmenu'}"
+                class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text">
+                    <span class="d-none d-lg-inline-block">Add Menu</span>
+                    <font-awesome-icon icon="fa-solid fa-add" class="ms-1 ms-lg-2" />
+                </router-link>
+
+                <router-link :to="{name:'stillworking'}" @click="activeMenu('stillworking')" :class="{active:menuActive==='stillworking'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <span class="d-none d-lg-inline-block">Gallery</span>
                     <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" /> 
-                </a>
-                <a href="#" @click="activeMenu('service')" :class="{active:menuActive==='service'}"
+                </router-link>
+
+                <a href="#" @click="goback" :class="{active:menuActive==='goback'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <span class="d-none d-lg-inline-block">Service</span>
-                    <font-awesome-icon icon="fa-solid fa-file-image" class="ms-1 ms-lg-2" />
-                </a>        
-                <a href="#" @click="activeMenu('logout')" :class="{active:menuActive==='logout'}"
+                    <span class="d-none d-lg-inline-block">Home</span>
+                    <font-awesome-icon icon="fa-solid fa-arrow-right" class="ms-1 ms-lg-2" />
+                </a>          
+                <a href="#" @click="logout" :class="{active:menuActive==='logout'}"
                 class=" d-flex justify-content-lg-end justify-content-center align-items-center list-group-item list-group-item-action bg-transparent text-danger fw-bold">
                     <span class="d-none d-lg-inline-block">Logout</span>
                     <font-awesome-icon icon="fa-solid fa-power-off" class="ms-1 ms-lg-2"></font-awesome-icon>
                 </a>
+
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="py-4 px-4">
-                
-            </nav>
-
+            <span class="danger-text" v-if="error">{{error}}</span>
             <div class="container-fluid px-4">
-                
+              <router-view></router-view>
             </div>
         </div>
     </div>
@@ -50,15 +59,55 @@
 
 <script>
 import { ref } from 'vue'
+import getUser from '../composables/getUser'
+import useSignout from '@/composables/useSignout'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 export default {
+  components: { 
+    
+    },
     setup(){
-       const menuActive = ref('menu')
+       
+       const {updateUser} = getUser()
+       const { error, signout } = useSignout()
+       const router = useRouter()
+       const route = useRoute()
 
+       //get Active from route.path
+       const activeRoute = route.path.slice(route.path.lastIndexOf('/') + 1)
 
-       const activeMenu = menu => menuActive.value = menu
- 
-       return {menuActive ,activeMenu}
+       const menuActive = ref(activeRoute)
+       const currentTab = ref(activeRoute)
+       //for sidebar
+       const activeMenu = (active) => {
+        menuActive.value = active
+        currentTab.value = active
+       }
+       
+
+       //for logout
+       const logout = () =>{
+        signout()
+        if(!error.value){
+          router.push({name:'login'})
+        }
+       }
+
+       //goback
+       const goback = () => {
+          router.push({name:'home'})
+       }
+
+       
+       return {menuActive
+              ,activeMenu
+              ,currentTab
+              ,logout
+              ,updateUser
+              ,goback
+              ,error}
     }
 }
 </script>
@@ -93,10 +142,6 @@ export default {
 
 #wrapper {
   overflow-x: hidden;
-  background: #C9D6FF;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #C9D6FF, #E2E2E2);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #C9D6FF, #E2E2E2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 #sidebar-wrapper {

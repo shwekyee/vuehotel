@@ -5,26 +5,29 @@ const { collection,
         orderBy, 
         onSnapshot, 
         query,
-        limit,
-        startAt} = dbFun
+        } = dbFun
 
-const getCollection = (collection_, query_, limit_ = 10, startAt_ = 1) =>{
+const getCollection = (collection_, query_) =>{
     let error = ref(null)
     let documents = ref(null)
+    let isPending = ref(false)
 
     const colRef = collection(db, collection_)
-    const q = query(colRef, orderBy(query_, 'desc'), limit(limit_), startAt(startAt_))
+    const q = query(colRef, orderBy(query_, 'desc'))
+
+    isPending.value = true
 
     const unsub = onSnapshot(q , snapshot => {
         let results = []
         snapshot.docs.forEach( doc => {
-            doc.data().price && results.push({...doc.data(), id:doc.id}) 
+            results.push({...doc.data(), id:doc.id}) 
         })
-
+        isPending.value = false
         documents.value = results
         error.value = null
     }, err => {
         documents.value = null
+        isPending.value = false
         error.value = 'could not fetch the data' + err.message
     })
 
@@ -33,6 +36,8 @@ const getCollection = (collection_, query_, limit_ = 10, startAt_ = 1) =>{
         // unsub from prev collection when watcher is stopped (component unmounted)
         onInvalidate(() => unsub());
       });
+
+    return {documents, error, isPending}
 }
 
 export default getCollection

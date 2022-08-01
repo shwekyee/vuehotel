@@ -1,5 +1,7 @@
 import { ref } from 'vue'
-import { collection, addDoc,db } from '../firebase/config'
+import { db, dbFun } from '../firebase/config'
+
+const { collection, addDoc } = dbFun
 
 const useCollection = (collection_) => {
     const error = ref(null)

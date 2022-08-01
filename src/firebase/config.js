@@ -5,13 +5,24 @@ import { getFirestore,
          orderBy,
          query,
          limit,
-         startAt } from "firebase/firestore";
+         startAt,
+         serverTimestamp,
+         addDoc,
+         doc,
+         getDoc,
+         deleteDoc,
+         updateDoc  } from "firebase/firestore";
 import { getAuth,
          createUserWithEmailAndPassword,
          updateProfile,
          signInWithEmailAndPassword,
          signOut,
          onAuthStateChanged } from "firebase/auth";
+import { getStorage,
+         ref,
+         uploadBytes,
+         getDownloadURL,
+         deleteObject } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZnziL165XPf8GhutcOvqoiO5lDFWhzbk",
@@ -26,6 +37,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 const auth = getAuth(app)
+const storage = getStorage(app)
 
 const authFun = {
     createUserWithEmailAndPassword,
@@ -41,7 +53,27 @@ const dbFun = {
     orderBy,
     query,
     limit,
-    startAt
+    startAt,
+    addDoc,
+    doc,
+    getDoc,
+    deleteDoc,
+    updateDoc
 }
 
-export { db, auth, app, authFun, onAuthStateChanged, dbFun}
+const storageFun = {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+    deleteObject
+}
+
+export { db, 
+         auth, 
+         storage, 
+         app, 
+         authFun, 
+         onAuthStateChanged, 
+         dbFun, 
+         storageFun,
+         serverTimestamp}
