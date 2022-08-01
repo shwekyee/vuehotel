@@ -12,21 +12,21 @@
   <label for="formGroupExampleInput2" class="form-label">Title</label>
   <input v-model="form.title" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Title">
 </div>
-<img v-if="preview" class="addimgs" :src="preview" alt="">
-<div class="m-2 ms-0">
+<img v-if="preview" class="addimgs m-2 ms-0" :src="preview" alt="">
+<div class="m-2 ms-0 d-inline-block">
   <label for="formFile" class="form-label">
     <span v-if="error">{{error}}</span>
     <span v-if="fileError">{{fileError}}</span>
   </label>
-  <input class="form-control d-inline-block" @change="handleChange" name="file" type="file">
+  <input class="form-control" @change="handleChange" name="file" type="file">
 </div>
-<div class="m-2 ms-0">
+<div class="m-2 ms-0  d-inline-block">
   <label for="formGroupExampleInput3" class="form-label">Price</label>
-  <input v-model.number="form.price" type="number" class="form-control d-inline-block" id="formGroupExampleInput3" placeholder="Price">
+  <input v-model.number="form.price" type="number" class="form-control" id="formGroupExampleInput3" placeholder="Price">
 </div>
-<div class="m-2 ms-0">
+<div class="m-2 ms-0 d-inline-block">
   <label for="formGroupExampleInput4" class="form-label">People Count</label>
-  <input v-model.number="form.peopleCount" type="number" class="form-control d-inline-block" id="formGroupExampleInput4" placeholder="People Count">
+  <input v-model.number="form.peopleCount" type="number" class="form-control" id="formGroupExampleInput4" placeholder="People Count">
 </div>
 <p class="mb-0">Service</p>
 <div class="form-check">

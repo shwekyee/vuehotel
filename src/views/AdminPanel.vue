@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import getUser from '../composables/getUser'
 import useSignout from '@/composables/useSignout'
 import { useRouter } from 'vue-router'
@@ -76,7 +76,9 @@ export default {
        const route = useRoute()
 
        //get Active from route.path
-       const activeRoute = route.path.slice(route.path.lastIndexOf('/') + 1)
+       const activeRoute = ref(route.path.slice(route.path.lastIndexOf('/') + 1))
+       watch(route, () => activeRoute.value = route.path.slice(route.path.lastIndexOf('/') + 1))
+       
 
        const menuActive = ref(activeRoute)
        const currentTab = ref(activeRoute)

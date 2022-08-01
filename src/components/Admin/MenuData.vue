@@ -4,6 +4,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Category</th>
+      <th scope="col">Title</th>
       <th scope="col">Image</th>
       <th scope="col">People Count</th>
       <th scope="col">Price</th>
@@ -18,6 +19,7 @@
     <tr>
       <th scope="row">{{++idx}}</th>
       <td>{{data.category}}</td>
+      <td>{{data.title}}</td>
       <td>
         <img class="dataimgs" :src="data.coverUrl">
       </td>
@@ -69,7 +71,7 @@ export default {
 
       
       //get Data from firebase
-      let { documents, error, isPending } = getCollection('rooms', 'price')
+      let { documents, error, isPending } = getCollection('rooms', 'createdAt')
 
       // eslint-disable-next-line vue/return-in-computed-property
       const fetchDatas = computed( ()=> {

@@ -113,7 +113,6 @@ export default {
       const updateMenu = async () => {
         if(image.value){
           await uploadImage(image.value)
-          console.log(form.value.coverUrl)
           await updatedoc({
             ...form.value,
             image:filePath.value,
@@ -122,7 +121,6 @@ export default {
           })
           router.push({name:'adminpanel'})
         }else{
-          console.log({...form.value})
           await updatedoc({...form.value, createdAt:serverTimestamp()})
           router.push({name:'adminpanel'})
         }
