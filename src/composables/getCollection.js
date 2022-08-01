@@ -4,7 +4,7 @@ import { db, dbFun } from '../firebase/config'
 const { collection, 
         orderBy, 
         onSnapshot, 
-        query,
+        query
         } = dbFun
 
 const getCollection = (collection_, query_) =>{

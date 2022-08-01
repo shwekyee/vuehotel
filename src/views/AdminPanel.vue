@@ -50,7 +50,23 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <span class="danger-text" v-if="error">{{error}}</span>
-            <div class="container-fluid px-4">
+            <table v-if="menuActive==='menudata'" class="table">
+            <thead class="table-dark">
+                <tr class="tableTitles">
+                  <th scope="col">#</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">People Count</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">
+                    {{error}}
+                  </th>
+                </tr>
+            </thead>
+            </table>
+            <div class="container-fluid px-4" :class="{'mt-5':menuActive==='menudata'}">
               <router-view></router-view>
             </div>
         </div>
@@ -148,7 +164,8 @@ export default {
 
 #sidebar-wrapper {
   min-height: 100vh;
-  margin-left: 0rem;
+  position: fixed;
+  left:0;
   -webkit-transition: margin 0.25s ease-out;
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
@@ -161,6 +178,8 @@ export default {
 
 #page-content-wrapper {
   min-width: 100vw;
+  margin-left: 2rem;
+  height: 100vh;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -190,6 +209,8 @@ export default {
   #page-content-wrapper {
     min-width: 0;
     width: 100%;
+    height: 100vh;
+    margin-left:11.25rem;
   }
 
   #wrapper.toggled #sidebar-wrapper {

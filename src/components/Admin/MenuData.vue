@@ -1,19 +1,6 @@
 <template>
+
   <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Category</th>
-      <th scope="col">Title</th>
-      <th scope="col">Image</th>
-      <th scope="col">People Count</th>
-      <th scope="col">Price</th>
-      <th scope="col">Service</th>
-      <th scope="col">
-         {{error}}
-      </th>
-    </tr>
-  </thead>
   <h1 v-if="isPending">Loading</h1>
   <tbody v-for="(data,idx) in fetchDatas" :key="data.id">
     <tr>
@@ -42,13 +29,13 @@
     </tr>
   </tbody>
 </table>
-<vue-awesome-paginate
+<!-- <vue-awesome-paginate
     :total-items="50"
-    :items-per-page="5"
+    :items-per-page="8"
     :max-pages-shown="5"
     :current-page="1"
     :on-click="onClickHandler"
-  />
+  /> -->
 </template>
 
 <script>
@@ -62,7 +49,6 @@ import useDocument from '@/composables/useDocument';
 export default {
     setup(){
       const router = useRouter()
-
       
       //Pagination
       const onClickHandler = (page) => {
@@ -81,7 +67,7 @@ export default {
                 })
             }
             return
-        })
+      })
 
       //edit data
       const editData = (id) => {
@@ -140,5 +126,24 @@ export default {
   width:35px !important;
   height:35px !important;
   object-fit: cover;
+}
+.tableTitles{
+  position:fixed;
+  left:3.5rem;
+}
+@media (min-width: 990px) {
+  .tableTitles{
+  position:fixed;
+  left:12.75rem;
+  }
+}
+.tableTitles > :not(caption) > * > * {
+    padding: 0.5rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+tbody{
+  margin-top:100px;
 }
 </style>
