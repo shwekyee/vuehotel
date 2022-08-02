@@ -4,8 +4,8 @@
         <div class="container-fluid">
             <div id="room-list" class="my-lg-5 my-2 mb-1 d-flex flex-column rooms-list">
                 <h2 class="text-dark btn-sm text-center display-6">Room & Suits</h2>
-                <form class="d-flex my-2 align-self-lg-end align-self-center me-lg-5 mt-0">
-                    <input type="number" class="form-control searchforms" placeholder="People Count">
+                <form @submit.prevent="" class="d-flex my-2 align-self-lg-end align-self-center me-lg-5 mt-0">
+                    <input type="number" v-model.number="people" class="form-control searchforms" placeholder="People Count">
                     <button type="submit" class="btn btn-ouline-dark btn-sm searchbtns">
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                     </button>
@@ -19,17 +19,19 @@
 
             <div class="container row mx-auto px-5 my-5 mt-1">
                 <p v-if="error" class="danger-text">{{error}}</p>
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
+                <div v-for="(data,idx) in fetchDatas" :key="idx" class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../../assets/img/gallery/rose.jpg" class="img-fluid" />
+                            <img :src="data.coverUrl" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
+                                <li>{{data.category}}</li>
+                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> {{data.peopleCount}} people</li>
+                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon>
+                                    <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
+                                </li>
+                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> {{data.price}}</li>
                                 <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
                             </ul>
                         </div>
@@ -44,17 +46,25 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { ref,computed } from '@vue/reactivity'
 import getCollection from '@/composables/getCollection'
 
 
 export default {
     setup(){
         const activeBtn = ref('Delux')
-        const {error, results} = getCollection()
+        const people = ref(10)
+        const {error, documents, fetchAll} = getCollection('rooms')
        
-        console.log(results)
-        return {activeBtn,error}
+        fetchAll('createdAt')
+        const fetchDatas = computed( ()=> {
+           if(documents.value){
+                return documents.value.filter( doc => {
+                return doc.category.toLowerCase().includes(activeBtn.value.toLowerCase()) &&  doc.peopleCount <= people.value})
+           }
+        })
+        
+        return {activeBtn,error,fetchDatas,people}
     }
 }
 </script>

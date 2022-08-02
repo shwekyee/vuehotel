@@ -81,8 +81,9 @@ export default {
       const deleteData = async (id, image) => {
           const { deletedoc } = useDocument('rooms', id)
           const { deleteImage } = useStroage()
-          await deleteImage(image)
-          await deletedoc()
+          console.log(id,image)
+          // await deleteImage(image)
+          // await deletedoc()
           router.push({name:'adminpanel'})
       }
 
