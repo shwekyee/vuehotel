@@ -11,18 +11,18 @@
                     </button>
                 </form>
                 <ul>
-                    <li @click="activeBtn='delux'" :class="{active: activeBtn === 'delux' }">DELUXE</li>
-                    <li @click="activeBtn='standard'" :class="{active: activeBtn === 'standard' }">STANDART</li>
-                    <li @click="activeBtn='studio'" :class="{active: activeBtn === 'studio' }">STUDIO</li>
+                    <li @click="activeBtn='Delux'" :class="{active: activeBtn === 'Delux' }">DELUXE</li>
+                    <li @click="activeBtn='Standard'" :class="{active: activeBtn === 'Standard' }">STANDART</li>
+                    <li @click="activeBtn='Studio'" :class="{active: activeBtn === 'Studio' }">STUDIO</li>
                 </ul>
             </div>
 
             <div class="container row mx-auto px-5 my-5 mt-1">
-
+                <p v-if="error" class="danger-text">{{error}}</p>
                 <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
+                            <img src="../../assets/img/gallery/rose.jpg" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
@@ -35,60 +35,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
-                    <div class="d-flex justify-content-between">
-                        <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
-                        </div>
-                        <div class="roomtexts ms-auto">
-                            <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
-                    <div class="d-flex justify-content-between">
-                        <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
-                        </div>
-                        <div class="roomtexts ms-auto">
-                            <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
-                    <div class="d-flex justify-content-between">
-                        <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
-                        </div>
-                        <div class="roomtexts ms-auto">
-                            <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-
-
             </div>
 
         </div>
@@ -99,11 +45,16 @@
 
 <script>
 import { ref } from '@vue/reactivity'
+import getCollection from '@/composables/getCollection'
+
+
 export default {
     setup(){
-        const activeBtn = ref('delux')
-
-        return {activeBtn}
+        const activeBtn = ref('Delux')
+        const {error, results} = getCollection()
+       
+        console.log(results)
+        return {activeBtn,error}
     }
 }
 </script>

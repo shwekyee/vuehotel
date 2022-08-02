@@ -22,9 +22,9 @@
         <!-- <button class="btn btn-outline-success btn-sm me-1">
           Detail
         </button> -->
-        <button @click="deleteData(data.id, data.coverUrl)" class="btn btn-outline-danger btn-sm">
+        <button @click="deleteData(data.id, data.image)" class="btn btn-outline-danger btn-sm">
           Delete
-        </button>
+        </button> 
       </td>
     </tr>
   </tbody>
@@ -44,52 +44,55 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router';
 import useStroage from '@/composables/useStorage';
 import useDocument from '@/composables/useDocument';
+import { useStore } from 'vuex'
+
 
 
 export default {
     setup(){
       const router = useRouter()
       
-      //Pagination
-      const onClickHandler = (page) => {
-      console.log(page);
-      };
-
+      const store = useStore()
+      const search = computed( () => store.state.searchTitle)
       
       //get Data from firebase
-      let { documents, error, isPending } = getCollection('rooms', 'createdAt')
-
+      let { error, isPending, fetchAll, documents } = getCollection('rooms')
+      fetchAll('createdAt')
+      
       // eslint-disable-next-line vue/return-in-computed-property
       const fetchDatas = computed( ()=> {
-            if(documents.value){
-            return  documents.value.map( doc => {
-                    return {...doc}
-                })
-            }
-            return
+           if(documents.value){
+            return documents.value.filter( doc => {
+            return doc.category.toLowerCase().includes(search.value.toLowerCase())
+           })
+           }
       })
 
+      
+
+
+      
       //edit data
       const editData = (id) => {
           router.push({name:'editmenu', params:{id}})
       }
 
       //delete data
-      const deleteData = (id, image) => {
+      const deleteData = async (id, image) => {
           const { deletedoc } = useDocument('rooms', id)
           const { deleteImage } = useStroage()
-          deletedoc()
-          deleteImage(image)
-          console.log('Delete' + image, id)
+          await deleteImage(image)
+          await deletedoc()
           router.push({name:'adminpanel'})
       }
 
-      return {onClickHandler, 
+      return {
               fetchDatas,     
               error, 
               isPending,
               editData,
-              deleteData}
+              deleteData,
+              }
 }}
 </script>
 

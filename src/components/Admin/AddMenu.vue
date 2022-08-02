@@ -81,11 +81,12 @@ export default {
             await add_doc({
               ...form.value,
               image:filePath.value,
-              coverUrl:url.value
+              coverUrl:url.value,
+              category: form.value.category + ' ',
             })
             
             if(!error.value){
-                router.push({name:'adminpanel'})
+                router.push({name:'home'})
             }
         }
 

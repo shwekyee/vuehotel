@@ -105,13 +105,19 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import { auth } from '../../firebase/config'
 
 export default {
     setup(){
         const router = useRouter()
 
         const routeToLogin = () =>{
-            router.push({name:'login'})
+            if(auth.currentUser){
+                router.push({name:'adminpanel'})
+            }else{
+                router.push({name:'login'})
+            }
+            
         }
 
         return {routeToLogin}

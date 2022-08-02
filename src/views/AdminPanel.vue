@@ -61,7 +61,7 @@
                   <th scope="col">Price</th>
                   <th scope="col">Service</th>
                   <th scope="col">
-                    {{error}}
+                    <input type="text" class="form-control form-control-sm" v-model="search" placeholder="Category" @change.capture="searchChange">
                   </th>
                 </tr>
             </thead>
@@ -79,6 +79,7 @@ import getUser from '../composables/getUser'
 import useSignout from '@/composables/useSignout'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   components: { 
@@ -90,6 +91,10 @@ export default {
        const { error, signout } = useSignout()
        const router = useRouter()
        const route = useRoute()
+       const search = ref('')
+       
+       const store = useStore()
+       store.commit('SEARCH_TITLE', search.value)
 
        //get Active from route.path
        const activeRoute = ref(route.path.slice(route.path.lastIndexOf('/') + 1))
@@ -103,7 +108,12 @@ export default {
         menuActive.value = active
         currentTab.value = active
        }
-       
+
+
+       //search vuex
+       const searchChange = () => {
+          store.commit('SEARCH_TITLE', search.value)
+       }
 
        //for logout
        const logout = () =>{
@@ -125,7 +135,9 @@ export default {
               ,logout
               ,updateUser
               ,goback
-              ,error}
+              ,error
+              ,search
+              ,searchChange}
     }
 }
 </script>

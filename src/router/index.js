@@ -8,28 +8,51 @@ import MenuData from '../components/Admin/MenuData.vue'
 import AddMenu from '../components/Admin/AddMenu.vue'
 import EditMenu from '../components/Admin/EditMenu.vue'
 import StillWorking from '../components/Admin/StillWorking.vue'
+import { auth } from '../firebase/config'
+
+// auth guards
+const requireAuth = (to, from,next) => {
+  let user = auth.currentUser
+  if(!user){
+    next({name:'login'})
+  } else {
+    next()
+  }
+}
+
+const noAuthrequire = (to,from,next) => {
+  let user = auth.currentUser
+  if(user){
+    next({name:'admin'})
+  } else {
+    next()
+  }
+}
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginForm
+    component: LoginForm,
+    beforeEnter: noAuthrequire,
   },
   {
     path: '/signup',
     name: 'signup',
-    component: SignUpForm
+    component: SignUpForm,
+    beforeEnter: requireAuth,
   },
   {
     path: '/adminpanel',
     name: 'adminpanel',
     component: AdminPanel,
     redirect: '/adminpanel/menudata',
+    beforeEnter: requireAuth,
     children:[ {
                 path:'menudata',
                 name:'menudata',
