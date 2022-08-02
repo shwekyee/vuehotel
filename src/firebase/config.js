@@ -11,7 +11,8 @@ import { getFirestore,
          doc,
          getDoc,
          deleteDoc,
-         updateDoc  } from "firebase/firestore";
+         updateDoc,
+         where  } from "firebase/firestore";
 import { getAuth,
          createUserWithEmailAndPassword,
          updateProfile,
@@ -58,7 +59,8 @@ const dbFun = {
     doc,
     getDoc,
     deleteDoc,
-    updateDoc
+    updateDoc,
+    where
 }
 
 const storageFun = {

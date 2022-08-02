@@ -1,23 +1,12 @@
 <template>
+
   <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Category</th>
-      <th scope="col">Image</th>
-      <th scope="col">People Count</th>
-      <th scope="col">Price</th>
-      <th scope="col">Service</th>
-      <th scope="col">
-         {{error}}
-      </th>
-    </tr>
-  </thead>
   <h1 v-if="isPending">Loading</h1>
   <tbody v-for="(data,idx) in fetchDatas" :key="data.id">
     <tr>
       <th scope="row">{{++idx}}</th>
       <td>{{data.category}}</td>
+      <td>{{data.title}}</td>
       <td>
         <img class="dataimgs" :src="data.coverUrl">
       </td>
@@ -33,20 +22,20 @@
         <!-- <button class="btn btn-outline-success btn-sm me-1">
           Detail
         </button> -->
-        <button @click="deleteData(data.id, data.coverUrl)" class="btn btn-outline-danger btn-sm">
+        <button @click="deleteData(data.id, data.image)" class="btn btn-outline-danger btn-sm">
           Delete
-        </button>
+        </button> 
       </td>
     </tr>
   </tbody>
 </table>
-<vue-awesome-paginate
+<!-- <vue-awesome-paginate
     :total-items="50"
-    :items-per-page="5"
+    :items-per-page="8"
     :max-pages-shown="5"
     :current-page="1"
     :on-click="onClickHandler"
-  />
+  /> -->
 </template>
 
 <script>
@@ -55,53 +44,56 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router';
 import useStroage from '@/composables/useStorage';
 import useDocument from '@/composables/useDocument';
+import { useStore } from 'vuex'
+
 
 
 export default {
     setup(){
       const router = useRouter()
-
       
-      //Pagination
-      const onClickHandler = (page) => {
-      console.log(page);
-      };
-
+      const store = useStore()
+      const search = computed( () => store.state.searchTitle)
       
       //get Data from firebase
-      let { documents, error, isPending } = getCollection('rooms', 'price')
-
+      let { error, isPending, fetchAll, documents } = getCollection('rooms')
+      fetchAll('createdAt')
+      
       // eslint-disable-next-line vue/return-in-computed-property
       const fetchDatas = computed( ()=> {
-            if(documents.value){
-            return  documents.value.map( doc => {
-                    return {...doc}
-                })
-            }
-            return
-        })
+           if(documents.value){
+            return documents.value.filter( doc => {
+            return doc.category.toLowerCase().includes(search.value.toLowerCase())
+           })
+           }
+      })
 
+      
+
+
+      
       //edit data
       const editData = (id) => {
           router.push({name:'editmenu', params:{id}})
       }
 
       //delete data
-      const deleteData = (id, image) => {
+      const deleteData = async (id, image) => {
           const { deletedoc } = useDocument('rooms', id)
           const { deleteImage } = useStroage()
-          deletedoc()
-          deleteImage(image)
-          console.log('Delete' + image, id)
+          console.log(id,image)
+          await deletedoc()
+          await deleteImage(image)
           router.push({name:'adminpanel'})
       }
 
-      return {onClickHandler, 
+      return {
               fetchDatas,     
               error, 
               isPending,
               editData,
-              deleteData}
+              deleteData,
+              }
 }}
 </script>
 
@@ -138,5 +130,24 @@ export default {
   width:35px !important;
   height:35px !important;
   object-fit: cover;
+}
+.tableTitles{
+  position:fixed;
+  left:3.5rem;
+}
+@media (min-width: 990px) {
+  .tableTitles{
+  position:fixed;
+  left:12.75rem;
+  }
+}
+.tableTitles > :not(caption) > * > * {
+    padding: 0.5rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+tbody{
+  margin-top:100px;
 }
 </style>

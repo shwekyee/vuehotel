@@ -50,7 +50,23 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <span class="danger-text" v-if="error">{{error}}</span>
-            <div class="container-fluid px-4">
+            <table v-if="menuActive==='menudata'" class="table">
+            <thead class="table-dark">
+                <tr class="tableTitles">
+                  <th scope="col">#</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">People Count</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">
+                    <input type="text" class="form-control form-control-sm" v-model="search" placeholder="Category" @change.capture="searchChange">
+                  </th>
+                </tr>
+            </thead>
+            </table>
+            <div class="container-fluid px-4" :class="{'mt-5':menuActive==='menudata'}">
               <router-view></router-view>
             </div>
         </div>
@@ -58,11 +74,12 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import getUser from '../composables/getUser'
 import useSignout from '@/composables/useSignout'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   components: { 
@@ -74,9 +91,15 @@ export default {
        const { error, signout } = useSignout()
        const router = useRouter()
        const route = useRoute()
+       const search = ref('')
+       
+       const store = useStore()
+       store.commit('SEARCH_TITLE', search.value)
 
        //get Active from route.path
-       const activeRoute = route.path.slice(route.path.lastIndexOf('/') + 1)
+       const activeRoute = ref(route.path.slice(route.path.lastIndexOf('/') + 1))
+       watch(route, () => activeRoute.value = route.path.slice(route.path.lastIndexOf('/') + 1))
+       
 
        const menuActive = ref(activeRoute)
        const currentTab = ref(activeRoute)
@@ -85,7 +108,12 @@ export default {
         menuActive.value = active
         currentTab.value = active
        }
-       
+
+
+       //search vuex
+       const searchChange = () => {
+          store.commit('SEARCH_TITLE', search.value)
+       }
 
        //for logout
        const logout = () =>{
@@ -107,7 +135,9 @@ export default {
               ,logout
               ,updateUser
               ,goback
-              ,error}
+              ,error
+              ,search
+              ,searchChange}
     }
 }
 </script>
@@ -146,7 +176,8 @@ export default {
 
 #sidebar-wrapper {
   min-height: 100vh;
-  margin-left: 0rem;
+  position: fixed;
+  left:0;
   -webkit-transition: margin 0.25s ease-out;
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
@@ -159,6 +190,8 @@ export default {
 
 #page-content-wrapper {
   min-width: 100vw;
+  margin-left: 2rem;
+  height: 100vh;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -188,6 +221,8 @@ export default {
   #page-content-wrapper {
     min-width: 0;
     width: 100%;
+    height: 100vh;
+    margin-left:11.25rem;
   }
 
   #wrapper.toggled #sidebar-wrapper {

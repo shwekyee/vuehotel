@@ -86,7 +86,7 @@ export default {
 }
 
 .imgboxs{
-    background: url(../../assets/img/gallery/9.jpg);
+    background: url(../../assets/img/gallery/h3.jpg);
     background-size: cover;
     height:300px;
     display: flex;

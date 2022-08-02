@@ -4,91 +4,73 @@
         <div class="container-fluid">
             <div id="room-list" class="my-lg-5 my-2 mb-1 d-flex flex-column rooms-list">
                 <h2 class="text-dark btn-sm text-center display-6">Room & Suits</h2>
-                <form class="d-flex my-2 align-self-lg-end align-self-center me-lg-5 mt-0">
-                    <input type="number" class="form-control searchforms" placeholder="People Count">
+                <form @submit.prevent="" class="d-flex my-2 align-self-lg-end align-self-center me-lg-5 mt-0">
+                    <input type="number" v-model.number="people" class="form-control searchforms" placeholder="People Count">
                     <button type="submit" class="btn btn-ouline-dark btn-sm searchbtns">
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                     </button>
                 </form>
                 <ul>
-                    <li @click="activeBtn='delux'" :class="{active: activeBtn === 'delux' }">DELUXE</li>
-                    <li @click="activeBtn='standard'" :class="{active: activeBtn === 'standard' }">STANDART</li>
-                    <li @click="activeBtn='studio'" :class="{active: activeBtn === 'studio' }">STUDIO</li>
+                    <li @click="activeBtn='All'" :class="{active: activeBtn === 'All' }">All</li>
+                    <li @click="activeBtn='Delux'" :class="{active: activeBtn === 'Delux' }">DELUXE</li>
+                    <li @click="activeBtn='Standard'" :class="{active: activeBtn === 'Standard' }">STANDART</li>
+                    <li @click="activeBtn='Studio'" :class="{active: activeBtn === 'Studio' }">STUDIO</li>
                 </ul>
             </div>
 
             <div class="container row mx-auto px-5 my-5 mt-1">
-
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
+                <p v-if="error" class="danger-text">{{error}}</p>
+                <div v-for="(data,idx) in fetchDatas" :key="idx" class="col-lg-5 col-md-6 col-12 cards fromlefts">
                     <div class="d-flex justify-content-between">
                         <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
+                            <img :src="data.coverUrl" class="img-fluid" />
                         </div>
                         <div class="roomtexts ms-auto">
                             <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
+                                <li>{{data.category}}</li>
+                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> {{data.peopleCount}} people</li>
+                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon>
+                                    <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
+                                </li>
+                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> {{data.price}}</li>
+                                <li><button class="btn btn-outline-dark btn-sm mt-1"  data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now</button></li>
                             </ul>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
-                    <div class="d-flex justify-content-between">
-                        <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{data.category}}</h5>
+                            
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="roomtexts ms-auto">
-                            <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
-                            </ul>
+                        <div class="modal-body d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                        <img :src="data.coverUrl" class="card-img-top" :alt="data.image">
+                        <h5 class="card-title p-2">{{data.title}}</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{data.category}}</li>
+                            <li class="list-group-item"><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> {{data.peopleCount}} people</li>
+                            <li class="list-group-item"><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon>
+                                    <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="col-sm mx-auto my-1">
+                                    <input type="date" name="dob" id="dob" class="form-control form-control-sm rounded-0 shadow-none first"/>
+                                </div>
+                            </li>
+                        </ul>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
-                    <div class="d-flex justify-content-between">
-                        <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
                         </div>
-                        <div class="roomtexts ms-auto">
-                            <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
-                            </ul>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Accept</button>
+                        </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-5 col-md-6 col-12 cards fromlefts">
-                    <div class="d-flex justify-content-between">
-                        <div class="roomimgs">
-                            <img src="../../assets/img/gallery/1.jpg" class="img-fluid" />
-                        </div>
-                        <div class="roomtexts ms-auto">
-                            <ul>
-                                <li>Delux Room</li>
-                                <li><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> 4 people</li>
-                                <li><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon> Breakfast</li>
-                                <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> 20</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
-                
-
-
             </div>
 
         </div>
@@ -98,12 +80,26 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { ref,computed } from '@vue/reactivity'
+import getCollection from '@/composables/getCollection'
+
+
 export default {
     setup(){
-        const activeBtn = ref('delux')
+        const activeBtn = ref('All')
+        const people = ref()
+        const {error, documents, fetchAll} = getCollection('rooms')
+       
+        fetchAll('createdAt')
+        const fetchDatas = computed( ()=> {
+           if(documents.value){
+                return documents.value.filter( doc => {
+                return (activeBtn.value && doc.category.toLowerCase().includes(activeBtn.value.toLowerCase()) ) && (!people.value || doc.peopleCount <= people.value) || activeBtn.value === "All"
+                })
+           }
+        })
 
-        return {activeBtn}
+        return {activeBtn,error,fetchDatas,people}
     }
 }
 </script>
