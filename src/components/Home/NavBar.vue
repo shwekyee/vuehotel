@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="col-sm mx-auto my-1">
-                        <button class="btn btn-dark btn-sm rounded-0 shadow-none py-2">Book Now</button>
+                        <a href="#room" class="btn btn-dark btn-sm rounded-0 shadow-none py-2">Book Now</a>
                     </div>
                 </div>
             </form>

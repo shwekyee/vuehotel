@@ -23,7 +23,7 @@ const useStroage = () => {
     }
 
     const deleteImage = async(file) => {
-        filePath.value = `images/${file.name}`
+        filePath.value = `images/${file}`
         const storageRef = storageFun.ref(storage, filePath.value)
         try{
             await deleteObject(storageRef, file)

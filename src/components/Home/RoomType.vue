@@ -11,6 +11,7 @@
                     </button>
                 </form>
                 <ul>
+                    <li @click="activeBtn='All'" :class="{active: activeBtn === 'All' }">All</li>
                     <li @click="activeBtn='Delux'" :class="{active: activeBtn === 'Delux' }">DELUXE</li>
                     <li @click="activeBtn='Standard'" :class="{active: activeBtn === 'Standard' }">STANDART</li>
                     <li @click="activeBtn='Studio'" :class="{active: activeBtn === 'Studio' }">STUDIO</li>
@@ -32,9 +33,42 @@
                                     <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
                                 </li>
                                 <li><font-awesome-icon icon="fa-dollar-sign"></font-awesome-icon> {{data.price}}</li>
-                                <li><button class="btn btn-outline-dark btn-sm mt-1">Book Now</button></li>
+                                <li><button class="btn btn-outline-dark btn-sm mt-1"  data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now</button></li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{data.category}}</h5>
+                            
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                        <img :src="data.coverUrl" class="card-img-top" :alt="data.image">
+                        <h5 class="card-title p-2">{{data.title}}</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{data.category}}</li>
+                            <li class="list-group-item"><font-awesome-icon icon="fa-user-friends"></font-awesome-icon> {{data.peopleCount}} people</li>
+                            <li class="list-group-item"><font-awesome-icon icon="fa-wine-glass"></font-awesome-icon>
+                                    <span v-for="(i,d) in data.service" :key="d">{{ i + ", " }}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="col-sm mx-auto my-1">
+                                    <input type="date" name="dob" id="dob" class="form-control form-control-sm rounded-0 shadow-none first"/>
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Accept</button>
+                        </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -52,18 +86,19 @@ import getCollection from '@/composables/getCollection'
 
 export default {
     setup(){
-        const activeBtn = ref('Delux')
-        const people = ref(10)
+        const activeBtn = ref('All')
+        const people = ref()
         const {error, documents, fetchAll} = getCollection('rooms')
        
         fetchAll('createdAt')
         const fetchDatas = computed( ()=> {
            if(documents.value){
                 return documents.value.filter( doc => {
-                return doc.category.toLowerCase().includes(activeBtn.value.toLowerCase()) &&  doc.peopleCount <= people.value})
+                return (activeBtn.value && doc.category.toLowerCase().includes(activeBtn.value.toLowerCase()) ) && (!people.value || doc.peopleCount <= people.value) || activeBtn.value === "All"
+                })
            }
         })
-        
+
         return {activeBtn,error,fetchDatas,people}
     }
 }

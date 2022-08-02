@@ -82,8 +82,8 @@ export default {
           const { deletedoc } = useDocument('rooms', id)
           const { deleteImage } = useStroage()
           console.log(id,image)
-          // await deleteImage(image)
-          // await deletedoc()
+          await deletedoc()
+          await deleteImage(image)
           router.push({name:'adminpanel'})
       }
 
