@@ -1,7 +1,21 @@
 <template>
 
-  <table class="table">
+  <table class="table pt-1">
   <h1 v-if="isPending">Loading</h1>
+  <thead class="table-primary">
+    <tr class="w-100">
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+      <th scope="col">Title</th>
+      <th scope="col">Image</th>
+      <th scope="col">People Count</th>
+      <th scope="col">Price</th>
+      <th scope="col">Service</th>
+      <th scope="col">
+                    
+      </th>
+    </tr>
+  </thead>
   <tbody v-for="(data,idx) in fetchDatas" :key="data.id">
     <tr>
       <th scope="row">{{++idx}}</th>
@@ -19,9 +33,6 @@
         <button @click="editData(data.id)" class="btn btn-outline-primary btn-sm me-1">
           Edit
         </button>
-        <!-- <button class="btn btn-outline-success btn-sm me-1">
-          Detail
-        </button> -->
         <button @click="deleteData(data.id, data.image)" class="btn btn-outline-danger btn-sm">
           Delete
         </button> 
@@ -70,10 +81,6 @@ export default {
            }
       })
 
-      
-
-
-      
       //edit data
       const editData = (id) => {
           router.push({name:'editmenu', params:{id}})
@@ -133,22 +140,7 @@ export default {
   height:35px !important;
   object-fit: cover;
 }
-.tableTitles{
-  position:fixed;
-  left:3.5rem;
-}
-@media (min-width: 990px) {
-  .tableTitles{
-  position:fixed;
-  left:12.75rem;
-  }
-}
-.tableTitles > :not(caption) > * > * {
-    padding: 0.5rem 0.5rem;
-    background-color: var(--bs-table-bg);
-    border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
-}
+
 tbody{
   margin-top:100px;
 }

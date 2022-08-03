@@ -1,5 +1,6 @@
 <template>
-  <form @submit.prevent class="mt-2">
+  <p v-if="isPending" class="display-6">Loading</p>
+  <form v-if="!isPending" @submit.prevent class="mt-2">
   <div class="mb-3">
   <label for="formGroupExampleInput" class="form-label">Category</label>
     <select v-model="form.category" class="form-select">
@@ -43,7 +44,7 @@
     Message
   </label>
 </div>
-</form>
+  </form>
 <button @click="addMenu" type="submit" class="btn btn-outline-dark mx-auto d-block mt-3">Add Menu</button>
 </template>
 
@@ -71,7 +72,7 @@ export default {
             coverUrl:null,
             service:[]
         })
-        const { error, add_doc} = useCollection('rooms')
+        const { error, add_doc, isPending} = useCollection('rooms')
         const { filePath , url, uploadImage } = useStroage()
         
 
@@ -106,7 +107,7 @@ export default {
       }
             
         
-        return {form, addMenu, error, handleChange, fileError, preview}
+        return {form, addMenu, error, handleChange, fileError, preview, isPending}
     }
 }
 </script>

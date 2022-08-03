@@ -50,26 +50,16 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <span class="danger-text" v-if="error">{{error}}</span>
-            <table v-if="menuActive==='menudata'" class="table">
-            <thead class="table-dark">
-                <tr class="tableTitles">
-                  <th scope="col">#</th>
-                  <th scope="col">Category</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">People Count</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Service</th>
-                  <th scope="col">
-                    <input type="text" class="form-control form-control-sm" v-model="search" placeholder="Category" @change.capture="searchChange">
-                  </th>
-                </tr>
-            </thead>
-            </table>
-            <div class="container-fluid px-4" :class="{'mt-5':menuActive==='menudata'}">
+            
+            <nav  v-if="menuActive==='menudata'"  class="navbar navbar-dark bg-dark d-flex justify-content-end fixed-top navbars">
+            <form @submit.prevent class="d-flex">
+                      <input type="text" class="form-control form-control-sm me-2 m-1" v-model="search" placeholder="Category" @change.capture="searchChange" />
+            </form> 
+            </nav>
+            <div class="container-fluid px-4" :class="{'margin-tops':menuActive==='menudata'}">
               <router-view></router-view>
             </div>
-        </div>
+          </div>
     </div>
 </template>
 
@@ -182,6 +172,7 @@ export default {
   -moz-transition: margin 0.25s ease-out;
   -o-transition: margin 0.25s ease-out;
   transition: margin 0.25s ease-out;
+  z-index: 2;
 }
 
 #sidebar-wrapper .list-group {
@@ -233,4 +224,11 @@ export default {
  }
 }
 
+.navbars{
+  z-index: 1;
+}
+
+.margin-tops{
+  margin-top: 4rem;
+}
 </style>
