@@ -57,6 +57,8 @@ export default {
       
       //get Data from firebase
       let { error, isPending, fetchAll, documents } = getCollection('rooms')
+      
+      
       fetchAll('createdAt')
       
       // eslint-disable-next-line vue/return-in-computed-property
@@ -84,7 +86,7 @@ export default {
           console.log(id,image)
           await deletedoc()
           await deleteImage(image)
-          router.push({name:'adminpanel'})
+          fetchAll('createdAt')
       }
 
       return {

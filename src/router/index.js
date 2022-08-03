@@ -45,7 +45,7 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUpForm,
-    beforeEnter: requireAuth,
+    beforeEnter: noAuthrequire,
   },
   {
     path: '/adminpanel',
